@@ -42,6 +42,10 @@ function Note(x, y, state) {
   this.x = x;
   this.y = y;
   this.state = "";
+  this.xClickableLeft = this.x - (distanceBetweenVerticalLines * .3);
+  this.xClickableRight = this.x + (distanceBetweenVerticalLines * .3);
+  this.yClickableBottom = this.y - (distanceBetweenVerticalLines * .3);
+  this.yClickableTop = this.y + (distanceBetweenVerticalLines * .3);
 }
 
 //set markerX array positions
@@ -153,8 +157,8 @@ let x7y6 = new Note(markerX[7], markerY[6], "");
 
 //set HTML body styles
 $('body').css({
-  'margin-top': canvasTop + 'px',
-  'margin-left': canvasLeft + 'px',
+  // 'margin-top': canvasTop + 'px',
+  // 'margin-left': canvasLeft + 'px',
   'background-color': bodyBackgroundColor
 });
 
@@ -249,6 +253,7 @@ function reset() {
   x6y4.state = "";
   x6y5.state = "";
 
+  console.log('Canvas reset');
 }
 
 
@@ -271,21 +276,51 @@ function reset() {
 //for display purposes only
 //return mouse x/y
 $('#canvas').mousemove(function(e){
-  let t = $(window).scrollTop();
-  let l = $(window).scrollLeft();
-  let x = e.clientX - canvasLeft + l -rect.left;
-  let y = e.clientY - canvasTop + t -rect.top;
+  let scrollTop = $(window).scrollTop();
+  let scrollLeft = $(window).scrollLeft();
+  let offsetY = $('#canvas').offset().top;
+  let offsetX = $('#canvas').offset().left;
+  let x = e.clientX - (offsetX - scrollLeft)
+  let y = e.clientY -(offsetY - scrollTop);
   $('#scroll').html('mousemove: ' + x + ',' + y);
 });
 
 $('#canvas').click(function(e){
-  let t = $(window).scrollTop();
-  let l = $(window).scrollLeft();
-  let x = e.clientX - canvasLeft + l;
-  let y = e.clientY - canvasTop + t;
+  let scrollTop = $(window).scrollTop();
+  let scrollLeft = $(window).scrollLeft();
+  let offsetY = $('#canvas').offset().top;
+  let offsetX = $('#canvas').offset().left;
+  let x = e.clientX - (offsetX - scrollLeft)
+  let y = e.clientY -(offsetY - scrollTop);
   console.log(x + ',' + y);
 
-  // if (mode = 'plot') {
-  //   makeCircle(x,y)
-  // }
+  if (mode = 'plot') {
+    determinePositionForPlot(x,y)
+  }
 });
+
+//determinePositionForPlot function
+function determinePositionForPlot(x,y) {
+  //if open string
+  if (y > x1y0.yClickableBottom && y < x0y0.y) {
+    console.log('open string clicked');
+    if (x > x1y0.xClickableLeft && x < x1y0.xClickableRight) {
+      console.log('line 1 clicked');
+    }
+    else if (x > x2y0.xClickableLeft && x < x2y0.xClickableRight) {
+      console.log('line 2 clicked');
+    }
+    else if (x > x3y0.xClickableLeft && x < x3y0.xClickableRight) {
+      console.log('line 3 clicked');
+    }
+    else if (x > x4y0.xClickableLeft && x < x4y0.xClickableRight) {
+      console.log('line 4 clicked');
+    }
+    else if (x > x5y0.xClickableLeft && x < x5y0.xClickableRight) {
+      console.log('line 5 clicked');
+    }
+    else if (x > x6y0.xClickableLeft && x < x6y0.xClickableRight) {
+      console.log('line 6 clicked');
+    }
+  }
+}

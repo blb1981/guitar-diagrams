@@ -7,8 +7,6 @@ const ctx = c.getContext("2d");
 
 let
   //change to make diagram work
-  canvasTop = 50,
-  canvasLeft = 50,
   canvasWidth = 350,
   canvasHeight = 350,
   marginLeft = canvasWidth * .2,
@@ -23,7 +21,8 @@ let
   lineCap = 'round',
   bodyBackgroundColor = 'lightgrey',
   canvasBackground = 'white',
-  mode = 'plot',
+  mode = 'draw',
+  circleSizePercentage = .35,
 
   guitarWidth = marginRight - marginLeft,
   guitarHeight = marginBottom - marginTop,
@@ -33,7 +32,10 @@ let
   y = marginTop, //use to return Y mouse coordinates
   markerX = new Array(),
   markerY = new Array(),
-  rect = canvas.getBoundingClientRect();
+  rect = canvas.getBoundingClientRect()
+  rectangleWidth = distanceBetweenVerticalLines *.9,
+  rectangleHeight = distanceBetweenHorizontalLines * .8
+
   ;
 
 
@@ -157,8 +159,6 @@ let x7y6 = new Note(markerX[7], markerY[6], "");
 
 //set HTML body styles
 $('body').css({
-  // 'margin-top': canvasTop + 'px',
-  // 'margin-left': canvasLeft + 'px',
   'background-color': bodyBackgroundColor
 });
 
@@ -172,6 +172,7 @@ $('#canvas').attr({
 $('#canvas').css({
   'background-color': canvasBackground,
 });
+
 
 reset();
 
@@ -211,13 +212,13 @@ function reset() {
     ctx.closePath();
   }
 
-  //SET EXTRA STATES FOR 7 STRING AND EXTRA POSITIONS !!!!!!!!!!!!!!!!!!!!!!!!!!!
   //set all states to blank for reset function
   x1y1.state = "";
   x1y2.state = "";
   x1y3.state = "";
   x1y4.state = "";
   x1y5.state = "";
+  x1y6.state = "";
 
   //x2s
   x2y1.state = "";
@@ -225,6 +226,7 @@ function reset() {
   x2y3.state = "";
   x2y4.state = "";
   x2y5.state = "";
+  x2y6.state = "";
 
   //x3s
   x3y1.state = "";
@@ -232,6 +234,7 @@ function reset() {
   x3y3.state = "";
   x3y4.state = "";
   x3y5.state = "";
+  x3y6.state = "";
 
   //x4s
   x4y1.state = "";
@@ -239,6 +242,7 @@ function reset() {
   x4y3.state = "";
   x4y4.state = "";
   x4y5.state = "";
+  x4y6.state = "";
 
   //x5s
   x5y1.state = "";
@@ -246,6 +250,7 @@ function reset() {
   x5y3.state = "";
   x5y4.state = "";
   x5y5.state = "";
+  x5y6.state = "";
 
   //x6s
   x6y1.state = "";
@@ -253,6 +258,15 @@ function reset() {
   x6y3.state = "";
   x6y4.state = "";
   x6y5.state = "";
+  x6y6.state = "";
+
+  //x7s
+  x7y1.state = "";
+  x7y2.state = "";
+  x7y3.state = "";
+  x7y4.state = "";
+  x7y5.state = "";
+  x7y6.state = "";
 
   console.log('Canvas reset');
 }
@@ -295,17 +309,34 @@ $('#canvas').click(function(e){
   let y = e.clientY -(offsetY - scrollTop);
   console.log(x + ',' + y);
 
-  if (mode = 'plot') {
+  if (mode = 'draw') {
     determinePositionForPlot(x,y)
   }
 });
+
+//draw shapes
+function drawShapes(x,y,state) {
+  if (state === "") {
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.rect(x - (rectangleWidth/2), y -(rectangleHeight/2), rectangleWidth, rectangleHeight);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.arc(x,y,(distanceBetweenVerticalLines * circleSizePercentage),0,2*Math.PI);
+    ctx.fill();
+    ctx.closePath();
+    return "black";
+  }
+}
 
 //determinePositionForPlot function
 function determinePositionForPlot(x,y) {
 
   //if open string
   if (y > x1y0.yClickableBottom && y < x0y0.y) {
-    console.log('open string clicked');
 
     if (x > x1y0.xClickableLeft && x < x1y0.xClickableRight) {
       console.log('line 1 clicked');
@@ -332,10 +363,9 @@ function determinePositionForPlot(x,y) {
 
   //if 1st fret
   if (y > x1y1.yClickableBottom && y < x0y1.yClickableTop) {
-    console.log('1st fret clicked');
 
     if (x > x1y1.xClickableLeft && x < x1y1.xClickableRight) {
-      console.log('line 1 clicked');
+      x1y1.state = drawShapes(x1y1.x, x1y1.y, x1y1.state);
     }
     else if (x > x2y1.xClickableLeft && x < x2y1.xClickableRight) {
       console.log('line 2 clicked');
@@ -491,6 +521,5 @@ function determinePositionForPlot(x,y) {
       console.log('line 7 clicked');
     }
   }
-
 
 }

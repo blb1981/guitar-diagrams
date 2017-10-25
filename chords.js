@@ -15,8 +15,8 @@ let
   marginRight = canvasWidth * .9,
   marginTop = canvasHeight * .2,
   marginBottom = canvasHeight * .9,
-  numberHorzontalLines = 5,
-  numberVerticalLines = 6,
+  numberHorzontalLines = 7,
+  numberVerticalLines = 7,
   lineWidth = 2,
   hasNut = 1,
   nutWidth = lineWidth * 4,
@@ -211,6 +211,7 @@ function reset() {
     ctx.closePath();
   }
 
+  //SET EXTRA STATES FOR 7 STRING AND EXTRA POSITIONS !!!!!!!!!!!!!!!!!!!!!!!!!!!
   //set all states to blank for reset function
   x1y1.state = "";
   x1y2.state = "";
@@ -301,9 +302,11 @@ $('#canvas').click(function(e){
 
 //determinePositionForPlot function
 function determinePositionForPlot(x,y) {
+
   //if open string
   if (y > x1y0.yClickableBottom && y < x0y0.y) {
     console.log('open string clicked');
+
     if (x > x1y0.xClickableLeft && x < x1y0.xClickableRight) {
       console.log('line 1 clicked');
     }
@@ -322,5 +325,172 @@ function determinePositionForPlot(x,y) {
     else if (x > x6y0.xClickableLeft && x < x6y0.xClickableRight) {
       console.log('line 6 clicked');
     }
+    else if (x > x7y0.xClickableLeft && x < x7y0.xClickableRight) {
+      console.log('line 7 clicked');
+    }
   }
+
+  //if 1st fret
+  if (y > x1y1.yClickableBottom && y < x0y1.yClickableTop) {
+    console.log('1st fret clicked');
+
+    if (x > x1y1.xClickableLeft && x < x1y1.xClickableRight) {
+      console.log('line 1 clicked');
+    }
+    else if (x > x2y1.xClickableLeft && x < x2y1.xClickableRight) {
+      console.log('line 2 clicked');
+    }
+    else if (x > x3y1.xClickableLeft && x < x3y1.xClickableRight) {
+      console.log('line 3 clicked');
+    }
+    else if (x > x4y1.xClickableLeft && x < x4y1.xClickableRight) {
+      console.log('line 4 clicked');
+    }
+    else if (x > x5y1.xClickableLeft && x < x5y1.xClickableRight) {
+      console.log('line 5 clicked');
+    }
+    else if (x > x6y1.xClickableLeft && x < x6y1.xClickableRight) {
+      console.log('line 6 clicked');
+    }
+    else if (x > x7y1.xClickableLeft && x < x7y1.xClickableRight) {
+      console.log('line 7 clicked');
+    }
+  }
+
+  //if 2nd fret
+  if (y > x1y2.yClickableBottom && y < x0y2.yClickableTop) {
+    console.log('2nd fret clicked');
+
+    if (x > x1y2.xClickableLeft && x < x1y2.xClickableRight) {
+      console.log('line 1 clicked');
+    }
+    else if (x > x2y2.xClickableLeft && x < x2y2.xClickableRight) {
+      console.log('line 2 clicked');
+    }
+    else if (x > x3y2.xClickableLeft && x < x3y2.xClickableRight) {
+      console.log('line 3 clicked');
+    }
+    else if (x > x4y2.xClickableLeft && x < x4y2.xClickableRight) {
+      console.log('line 4 clicked');
+    }
+    else if (x > x5y2.xClickableLeft && x < x5y2.xClickableRight) {
+      console.log('line 5 clicked');
+    }
+    else if (x > x6y2.xClickableLeft && x < x6y2.xClickableRight) {
+      console.log('line 6 clicked');
+    }
+    else if (x > x7y2.xClickableLeft && x < x7y2.xClickableRight) {
+      console.log('line 7 clicked');
+    }
+  }
+
+  //if 3rd fret
+  if (y > x1y3.yClickableBottom && y < x0y3.yClickableTop) {
+    console.log('3rd fret clicked');
+
+    if (x > x1y3.xClickableLeft && x < x1y3.xClickableRight) {
+      console.log('line 1 clicked');
+    }
+    else if (x > x2y3.xClickableLeft && x < x2y3.xClickableRight) {
+      console.log('line 2 clicked');
+    }
+    else if (x > x3y3.xClickableLeft && x < x3y3.xClickableRight) {
+      console.log('line 3 clicked');
+    }
+    else if (x > x4y3.xClickableLeft && x < x4y3.xClickableRight) {
+      console.log('line 4 clicked');
+    }
+    else if (x > x5y3.xClickableLeft && x < x5y3.xClickableRight) {
+      console.log('line 5 clicked');
+    }
+    else if (x > x6y3.xClickableLeft && x < x6y3.xClickableRight) {
+      console.log('line 6 clicked');
+    }
+    else if (x > x7y3.xClickableLeft && x < x7y3.xClickableRight) {
+      console.log('line 7 clicked');
+    }
+  }
+
+  //if 4th fret
+  if (y > x1y4.yClickableBottom && y < x0y4.yClickableTop) {
+    console.log('4th fret clicked');
+
+    if (x > x1y4.xClickableLeft && x < x1y4.xClickableRight) {
+      console.log('line 1 clicked');
+    }
+    else if (x > x2y4.xClickableLeft && x < x2y4.xClickableRight) {
+      console.log('line 2 clicked');
+    }
+    else if (x > x3y4.xClickableLeft && x < x3y4.xClickableRight) {
+      console.log('line 3 clicked');
+    }
+    else if (x > x4y4.xClickableLeft && x < x4y4.xClickableRight) {
+      console.log('line 4 clicked');
+    }
+    else if (x > x5y4.xClickableLeft && x < x5y4.xClickableRight) {
+      console.log('line 5 clicked');
+    }
+    else if (x > x6y4.xClickableLeft && x < x6y4.xClickableRight) {
+      console.log('line 6 clicked');
+    }
+    else if (x > x7y4.xClickableLeft && x < x7y4.xClickableRight) {
+      console.log('line 7 clicked');
+    }
+  }
+
+  //if 5th fret
+  if (y > x1y5.yClickableBottom && y < x0y5.yClickableTop) {
+    console.log('5th fret clicked');
+
+    if (x > x1y5.xClickableLeft && x < x1y5.xClickableRight) {
+      console.log('line 1 clicked');
+    }
+    else if (x > x2y5.xClickableLeft && x < x2y5.xClickableRight) {
+      console.log('line 2 clicked');
+    }
+    else if (x > x3y5.xClickableLeft && x < x3y5.xClickableRight) {
+      console.log('line 3 clicked');
+    }
+    else if (x > x4y5.xClickableLeft && x < x4y5.xClickableRight) {
+      console.log('line 4 clicked');
+    }
+    else if (x > x5y5.xClickableLeft && x < x5y5.xClickableRight) {
+      console.log('line 5 clicked');
+    }
+    else if (x > x6y5.xClickableLeft && x < x6y5.xClickableRight) {
+      console.log('line 6 clicked');
+    }
+    else if (x > x7y5.xClickableLeft && x < x7y5.xClickableRight) {
+      console.log('line 7 clicked');
+    }
+  }
+
+  //if 6th fret
+  if (y > x1y6.yClickableBottom && y < x0y6.yClickableTop) {
+    console.log('6th fret clicked');
+
+    if (x > x1y6.xClickableLeft && x < x1y6.xClickableRight) {
+      console.log('line 1 clicked');
+    }
+    else if (x > x2y6.xClickableLeft && x < x2y6.xClickableRight) {
+      console.log('line 2 clicked');
+    }
+    else if (x > x3y6.xClickableLeft && x < x3y6.xClickableRight) {
+      console.log('line 3 clicked');
+    }
+    else if (x > x4y6.xClickableLeft && x < x4y6.xClickableRight) {
+      console.log('line 4 clicked');
+    }
+    else if (x > x5y6.xClickableLeft && x < x5y6.xClickableRight) {
+      console.log('line 5 clicked');
+    }
+    else if (x > x6y6.xClickableLeft && x < x6y6.xClickableRight) {
+      console.log('line 6 clicked');
+    }
+    else if (x > x7y6.xClickableLeft && x < x7y6.xClickableRight) {
+      console.log('line 7 clicked');
+    }
+  }
+
+
 }

@@ -6,24 +6,23 @@ const ctx = c.getContext("2d");
 
 
 let
-  //change to make diagram work
+  //settings
   canvasWidth = 350,
   canvasHeight = 350,
   marginLeft = canvasWidth * .2,
   marginRight = canvasWidth * .9,
   marginTop = canvasHeight * .2,
   marginBottom = canvasHeight * .9,
-  numberHorzontalLines = 7,
-  numberVerticalLines = 7,
+  numberHorzontalLines = 7, //frets
+  numberVerticalLines = 8, //strings
   lineWidth = 2,
-  hasNut = 1,
+  hasNut = false,
   nutWidth = lineWidth * 4,
   lineCap = 'round',
   bodyBackgroundColor = 'lightgrey',
   canvasBackground = 'white',
   mode = 'draw',
   circleSizePercentage = .35,
-
   guitarWidth = marginRight - marginLeft,
   guitarHeight = marginBottom - marginTop,
   distanceBetweenVerticalLines = guitarWidth/(numberVerticalLines - 1),
@@ -33,9 +32,10 @@ let
   markerX = new Array(),
   markerY = new Array(),
   rect = canvas.getBoundingClientRect()
-  rectangleWidth = distanceBetweenVerticalLines *.9,
-  rectangleHeight = distanceBetweenHorizontalLines * .8
-
+  whiteRectangleWidth = distanceBetweenVerticalLines *.9,
+  whiteRectangleHeight = distanceBetweenHorizontalLines * .7,
+  blackRectangleWidth = distanceBetweenVerticalLines *.7,
+  blackRectangleHeight = distanceBetweenHorizontalLines * .6
   ;
 
 
@@ -82,7 +82,7 @@ for (i = 0; i <= numberHorzontalLines -1; i++) {
 }
 
 //create objects for notes
-//supports 7 strings, up to 6 frets
+//supports 8 strings, up to 6 frets
 
 //x0s
 let x0y0 = new Note(markerX[0], markerY[0], "");
@@ -147,7 +147,7 @@ let x6y4 = new Note(markerX[6], markerY[4], "");
 let x6y5 = new Note(markerX[6], markerY[5], "");
 let x6y6 = new Note(markerX[6], markerY[6], "");
 
-//x7s for 7 string guitarWidth
+//x7s for 7 string guitar
 let x7y0 = new Note(markerX[7], markerY[0], "");
 let x7y1 = new Note(markerX[7], markerY[1], "");
 let x7y2 = new Note(markerX[7], markerY[2], "");
@@ -155,6 +155,15 @@ let x7y3 = new Note(markerX[7], markerY[3], "");
 let x7y4 = new Note(markerX[7], markerY[4], "");
 let x7y5 = new Note(markerX[7], markerY[5], "");
 let x7y6 = new Note(markerX[7], markerY[6], "");
+
+//x8s for 8 string guitar
+let x8y0 = new Note(markerX[8], markerY[0], "");
+let x8y1 = new Note(markerX[8], markerY[1], "");
+let x8y2 = new Note(markerX[8], markerY[2], "");
+let x8y3 = new Note(markerX[8], markerY[3], "");
+let x8y4 = new Note(markerX[8], markerY[4], "");
+let x8y5 = new Note(markerX[8], markerY[5], "");
+let x8y6 = new Note(markerX[8], markerY[6], "");
 
 
 //set HTML body styles
@@ -174,7 +183,7 @@ $('#canvas').css({
 });
 
 
-reset();
+
 
 function reset() {
   //draw vertical lines
@@ -268,6 +277,14 @@ function reset() {
   x7y5.state = "";
   x7y6.state = "";
 
+  //x8s
+  x8y1.state = "";
+  x8y2.state = "";
+  x8y3.state = "";
+  x8y4.state = "";
+  x8y5.state = "";
+  x8y6.state = "";
+
   console.log('Canvas reset');
 }
 
@@ -319,7 +336,7 @@ function drawShapes(x,y,state) {
   if (state === "") {
     ctx.beginPath();
     ctx.fillStyle = "white";
-    ctx.rect(x - (rectangleWidth/2), y -(rectangleHeight/2), rectangleWidth, rectangleHeight);
+    ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
     ctx.fill();
     ctx.closePath();
 
@@ -330,6 +347,32 @@ function drawShapes(x,y,state) {
     ctx.closePath();
     return "black";
   }
+
+  if (state === "black") {
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.rect(x - (blackRectangleWidth/2), y -(blackRectangleHeight/2), blackRectangleWidth, blackRectangleHeight);
+    // ctx.arc(x,y,(distanceBetweenVerticalLines * circleSizePercentage),0,2*Math.PI);
+    ctx.fill();
+    ctx.closePath();
+    return "";
+  }
+
+  // if (state === "blank") {
+  //   ctx.beginPath();
+  //   ctx.fillStyle = "white";
+  //   ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
+  //   ctx.fill();
+  //   ctx.closePath();
+  //
+  //
+  // }
 }
 
 //determinePositionForPlot function
@@ -359,6 +402,9 @@ function determinePositionForPlot(x,y) {
     else if (x > x7y0.xClickableLeft && x < x7y0.xClickableRight) {
       console.log('line 7 clicked');
     }
+    else if (x > x8y0.xClickableLeft && x < x8y0.xClickableRight) {
+      console.log('line 8 clicked');
+    }
   }
 
   //if 1st fret
@@ -368,158 +414,173 @@ function determinePositionForPlot(x,y) {
       x1y1.state = drawShapes(x1y1.x, x1y1.y, x1y1.state);
     }
     else if (x > x2y1.xClickableLeft && x < x2y1.xClickableRight) {
-      console.log('line 2 clicked');
+      x2y1.state = drawShapes(x2y1.x, x2y1.y, x2y1.state);
     }
     else if (x > x3y1.xClickableLeft && x < x3y1.xClickableRight) {
-      console.log('line 3 clicked');
+      x3y1.state = drawShapes(x3y1.x, x3y1.y, x3y1.state);
     }
     else if (x > x4y1.xClickableLeft && x < x4y1.xClickableRight) {
-      console.log('line 4 clicked');
+      x4y1.state = drawShapes(x4y1.x, x4y1.y, x4y1.state);
     }
     else if (x > x5y1.xClickableLeft && x < x5y1.xClickableRight) {
-      console.log('line 5 clicked');
+      x5y1.state = drawShapes(x5y1.x, x5y1.y, x5y1.state);
     }
     else if (x > x6y1.xClickableLeft && x < x6y1.xClickableRight) {
-      console.log('line 6 clicked');
+      x6y1.state = drawShapes(x6y1.x, x6y1.y, x6y1.state);
     }
     else if (x > x7y1.xClickableLeft && x < x7y1.xClickableRight) {
-      console.log('line 7 clicked');
+      x7y1.state = drawShapes(x7y1.x, x7y1.y, x7y1.state);
+    }
+    else if (x > x8y1.xClickableLeft && x < x8y1.xClickableRight) {
+      x8y1.state = drawShapes(x8y1.x, x8y1.y, x8y1.state);
     }
   }
 
   //if 2nd fret
   if (y > x1y2.yClickableBottom && y < x0y2.yClickableTop) {
-    console.log('2nd fret clicked');
 
     if (x > x1y2.xClickableLeft && x < x1y2.xClickableRight) {
-      console.log('line 1 clicked');
+      x1y2.state = drawShapes(x1y2.x, x1y2.y, x1y2.state);
     }
     else if (x > x2y2.xClickableLeft && x < x2y2.xClickableRight) {
-      console.log('line 2 clicked');
+      x2y2.state = drawShapes(x2y2.x, x2y2.y, x2y2.state);
     }
     else if (x > x3y2.xClickableLeft && x < x3y2.xClickableRight) {
-      console.log('line 3 clicked');
+      x3y2.state = drawShapes(x3y2.x, x3y2.y, x3y2.state);
     }
     else if (x > x4y2.xClickableLeft && x < x4y2.xClickableRight) {
-      console.log('line 4 clicked');
+      x4y2.state = drawShapes(x4y2.x, x4y2.y, x4y2.state);
     }
     else if (x > x5y2.xClickableLeft && x < x5y2.xClickableRight) {
-      console.log('line 5 clicked');
+      x5y2.state = drawShapes(x5y2.x, x5y2.y, x5y2.state);
     }
     else if (x > x6y2.xClickableLeft && x < x6y2.xClickableRight) {
-      console.log('line 6 clicked');
+      x6y2.state = drawShapes(x6y2.x, x6y2.y, x6y2.state);
     }
     else if (x > x7y2.xClickableLeft && x < x7y2.xClickableRight) {
-      console.log('line 7 clicked');
+      x7y2.state = drawShapes(x7y2.x, x7y2.y, x7y2.state);
+    }
+    else if (x > x8y2.xClickableLeft && x < x8y2.xClickableRight) {
+      x8y2.state = drawShapes(x8y2.x, x8y2.y, x8y2.state);
     }
   }
 
   //if 3rd fret
   if (y > x1y3.yClickableBottom && y < x0y3.yClickableTop) {
-    console.log('3rd fret clicked');
 
     if (x > x1y3.xClickableLeft && x < x1y3.xClickableRight) {
-      console.log('line 1 clicked');
+      x1y3.state = drawShapes(x1y3.x, x1y3.y, x1y3.state);
     }
     else if (x > x2y3.xClickableLeft && x < x2y3.xClickableRight) {
-      console.log('line 2 clicked');
+      x2y3.state = drawShapes(x2y3.x, x2y3.y, x2y3.state);
     }
     else if (x > x3y3.xClickableLeft && x < x3y3.xClickableRight) {
-      console.log('line 3 clicked');
+      x3y3.state = drawShapes(x3y3.x, x3y3.y, x3y3.state);
     }
     else if (x > x4y3.xClickableLeft && x < x4y3.xClickableRight) {
-      console.log('line 4 clicked');
+      x4y3.state = drawShapes(x4y3.x, x4y3.y, x4y3.state);
     }
     else if (x > x5y3.xClickableLeft && x < x5y3.xClickableRight) {
-      console.log('line 5 clicked');
+      x5y3.state = drawShapes(x5y3.x, x5y3.y, x5y3.state);
     }
     else if (x > x6y3.xClickableLeft && x < x6y3.xClickableRight) {
-      console.log('line 6 clicked');
+      x6y3.state = drawShapes(x6y3.x, x6y3.y, x6y3.state);
     }
     else if (x > x7y3.xClickableLeft && x < x7y3.xClickableRight) {
-      console.log('line 7 clicked');
+      x7y3.state = drawShapes(x7y3.x, x7y3.y, x7y3.state);
+    }
+    else if (x > x8y3.xClickableLeft && x < x8y3.xClickableRight) {
+      x8y3.state = drawShapes(x8y3.x, x8y3.y, x8y3.state);
     }
   }
 
   //if 4th fret
   if (y > x1y4.yClickableBottom && y < x0y4.yClickableTop) {
-    console.log('4th fret clicked');
 
     if (x > x1y4.xClickableLeft && x < x1y4.xClickableRight) {
-      console.log('line 1 clicked');
+      x1y4.state = drawShapes(x1y4.x, x1y4.y, x1y4.state);
     }
     else if (x > x2y4.xClickableLeft && x < x2y4.xClickableRight) {
-      console.log('line 2 clicked');
+      x2y4.state = drawShapes(x2y4.x, x2y4.y, x2y4.state);
     }
     else if (x > x3y4.xClickableLeft && x < x3y4.xClickableRight) {
-      console.log('line 3 clicked');
+      x3y4.state = drawShapes(x3y4.x, x3y4.y, x3y4.state);
     }
     else if (x > x4y4.xClickableLeft && x < x4y4.xClickableRight) {
-      console.log('line 4 clicked');
+      x4y4.state = drawShapes(x4y4.x, x4y4.y, x4y4.state);
     }
     else if (x > x5y4.xClickableLeft && x < x5y4.xClickableRight) {
-      console.log('line 5 clicked');
+      x5y4.state = drawShapes(x5y4.x, x5y4.y, x5y4.state);
     }
     else if (x > x6y4.xClickableLeft && x < x6y4.xClickableRight) {
-      console.log('line 6 clicked');
+      x6y4.state = drawShapes(x6y4.x, x6y4.y, x6y4.state);
     }
     else if (x > x7y4.xClickableLeft && x < x7y4.xClickableRight) {
-      console.log('line 7 clicked');
+      x7y4.state = drawShapes(x7y4.x, x7y4.y, x7y4.state);
+    }
+    else if (x > x8y4.xClickableLeft && x < x8y4.xClickableRight) {
+      x8y4.state = drawShapes(x8y4.x, x8y4.y, x8y4.state);
     }
   }
 
   //if 5th fret
   if (y > x1y5.yClickableBottom && y < x0y5.yClickableTop) {
-    console.log('5th fret clicked');
 
     if (x > x1y5.xClickableLeft && x < x1y5.xClickableRight) {
-      console.log('line 1 clicked');
+      x1y5.state = drawShapes(x1y5.x, x1y5.y, x1y5.state);
     }
     else if (x > x2y5.xClickableLeft && x < x2y5.xClickableRight) {
-      console.log('line 2 clicked');
+      x2y5.state = drawShapes(x2y5.x, x2y5.y, x2y5.state);
     }
     else if (x > x3y5.xClickableLeft && x < x3y5.xClickableRight) {
-      console.log('line 3 clicked');
+      x3y5.state = drawShapes(x3y5.x, x3y5.y, x3y5.state);
     }
     else if (x > x4y5.xClickableLeft && x < x4y5.xClickableRight) {
-      console.log('line 4 clicked');
+      x4y5.state = drawShapes(x4y5.x, x4y5.y, x4y5.state);
     }
     else if (x > x5y5.xClickableLeft && x < x5y5.xClickableRight) {
-      console.log('line 5 clicked');
+      x5y5.state = drawShapes(x5y5.x, x5y5.y, x5y5.state);
     }
     else if (x > x6y5.xClickableLeft && x < x6y5.xClickableRight) {
-      console.log('line 6 clicked');
+      x6y5.state = drawShapes(x6y5.x, x6y5.y, x6y5.state);
     }
     else if (x > x7y5.xClickableLeft && x < x7y5.xClickableRight) {
-      console.log('line 7 clicked');
+      x7y5.state = drawShapes(x7y5.x, x7y5.y, x7y5.state);
+    }
+    else if (x > x8y5.xClickableLeft && x < x8y5.xClickableRight) {
+      x8y5.state = drawShapes(x8y5.x, x8y5.y, x8y5.state);
     }
   }
 
   //if 6th fret
   if (y > x1y6.yClickableBottom && y < x0y6.yClickableTop) {
-    console.log('6th fret clicked');
 
     if (x > x1y6.xClickableLeft && x < x1y6.xClickableRight) {
-      console.log('line 1 clicked');
+      x1y6.state = drawShapes(x1y6.x, x1y6.y, x1y6.state);
     }
     else if (x > x2y6.xClickableLeft && x < x2y6.xClickableRight) {
-      console.log('line 2 clicked');
+      x2y6.state = drawShapes(x2y6.x, x2y6.y, x2y6.state);
     }
     else if (x > x3y6.xClickableLeft && x < x3y6.xClickableRight) {
-      console.log('line 3 clicked');
+      x3y6.state = drawShapes(x3y6.x, x3y6.y, x3y6.state);
     }
     else if (x > x4y6.xClickableLeft && x < x4y6.xClickableRight) {
-      console.log('line 4 clicked');
+      x4y6.state = drawShapes(x4y6.x, x4y6.y, x4y6.state);
     }
     else if (x > x5y6.xClickableLeft && x < x5y6.xClickableRight) {
-      console.log('line 5 clicked');
+      x5y6.state = drawShapes(x5y6.x, x5y6.y, x5y6.state);
     }
     else if (x > x6y6.xClickableLeft && x < x6y6.xClickableRight) {
-      console.log('line 6 clicked');
+      x6y6.state = drawShapes(x6y6.x, x6y6.y, x6y6.state);
     }
     else if (x > x7y6.xClickableLeft && x < x7y6.xClickableRight) {
-      console.log('line 7 clicked');
+      x7y6.state = drawShapes(x7y6.x, x7y6.y, x7y6.state);
+    }
+    else if (x > x8y6.xClickableLeft && x < x8y6.xClickableRight) {
+      x8y6.state = drawShapes(x8y6.x, x8y6.y, x8y6.state);
     }
   }
 
 }
+
+reset();

@@ -2,21 +2,19 @@
 const c = document.getElementById("canvas");
 const ctx = c.getContext("2d");
 
-//set line width of diagram
-
-
+//settings
 let
-  //settings
-  canvasWidth = 350,
+  canvasWidth = 300,
   canvasHeight = 350,
   marginLeft = canvasWidth * .2,
   marginRight = canvasWidth * .9,
   marginTop = canvasHeight * .2,
   marginBottom = canvasHeight * .9,
-  numberHorzontalLines = 7, //frets
-  numberVerticalLines = 8, //strings
+  numberHorzontalLines = 5, //frets
+  numberVerticalLines = 6, //strings
   lineWidth = 2,
-  hasNut = false,
+  topNut = true,
+  leftNut = false,
   nutWidth = lineWidth * 4,
   lineCap = 'round',
   bodyBackgroundColor = 'lightgrey',
@@ -27,16 +25,18 @@ let
   guitarHeight = marginBottom - marginTop,
   distanceBetweenVerticalLines = guitarWidth/(numberVerticalLines - 1),
   distanceBetweenHorizontalLines = guitarHeight/(numberHorzontalLines - 1),
-  x = marginLeft, //used to return X mouse coordinates
-  y = marginTop, //use to return Y mouse coordinates
   markerX = new Array(),
   markerY = new Array(),
   rect = canvas.getBoundingClientRect()
   whiteRectangleWidth = distanceBetweenVerticalLines *.9,
-  whiteRectangleHeight = distanceBetweenHorizontalLines * .7,
+  whiteRectangleHeight = distanceBetweenHorizontalLines * .6,
   blackRectangleWidth = distanceBetweenVerticalLines *.7,
-  blackRectangleHeight = distanceBetweenHorizontalLines * .6
-  ;
+  blackRectangleHeight = distanceBetweenHorizontalLines * .6,
+  scrollTop = $(window).scrollTop(),
+  scrollLeft = $(window).scrollLeft(),
+  offsetY = $('#canvas').offset().top,
+  offsetX = $('#canvas').offset().left
+  ;//end settings
 
 
 //Note object prototype
@@ -83,7 +83,6 @@ for (i = 0; i <= numberHorzontalLines -1; i++) {
 
 //create objects for notes
 //supports 8 strings, up to 6 frets
-
 //x0s
 let x0y0 = new Note(markerX[0], markerY[0], "");
 let x0y1 = new Note(markerX[0], markerY[1], "");
@@ -171,21 +170,28 @@ $('body').css({
   'background-color': bodyBackgroundColor
 });
 
-//set canvas HTML attributes
-$('#canvas').attr({
-  'width': canvasWidth,
-  'height': canvasHeight
+$('#reset').click(function(){
+  reset();
 });
-
-//set canvas styles
-$('#canvas').css({
-  'background-color': canvasBackground,
-});
-
 
 
 
 function reset() {
+
+  //set canvas HTML attributes
+  $('#canvas').attr({
+    'width': canvasWidth,
+    'height': canvasHeight
+  });
+
+  //set canvas styles
+  $('#canvas').css({
+    'background-color': canvasBackground,
+  });
+
+  let x = marginLeft;
+  let y = marginTop;
+
   //draw vertical lines
   for (i = 1; i <= numberVerticalLines; i++) {
     ctx.beginPath();
@@ -211,12 +217,22 @@ function reset() {
   }
 
   //draw nut (if needed)
-  if (hasNut) {
+  if (topNut) {
     ctx.beginPath();
     ctx.lineCap = 'round';
     ctx.lineWidth = nutWidth;
     ctx.moveTo(marginLeft, marginTop);
     ctx.lineTo(marginRight, marginTop);
+    ctx.stroke();
+    ctx.closePath();
+  }
+  //draw nut on left side (if needed)
+  if (leftNut) {
+    ctx.beginPath();
+    ctx.lineCap = 'round';
+    ctx.lineWidth = nutWidth;
+    ctx.moveTo(marginLeft, marginTop);
+    ctx.lineTo(marginLeft, marginBottom);
     ctx.stroke();
     ctx.closePath();
   }
@@ -308,23 +324,14 @@ function reset() {
 //for display purposes only
 //return mouse x/y
 $('#canvas').mousemove(function(e){
-  let scrollTop = $(window).scrollTop();
-  let scrollLeft = $(window).scrollLeft();
-  let offsetY = $('#canvas').offset().top;
-  let offsetX = $('#canvas').offset().left;
   let x = e.clientX - (offsetX - scrollLeft)
   let y = e.clientY -(offsetY - scrollTop);
   $('#scroll').html('mousemove: ' + x + ',' + y);
 });
 
 $('#canvas').click(function(e){
-  let scrollTop = $(window).scrollTop();
-  let scrollLeft = $(window).scrollLeft();
-  let offsetY = $('#canvas').offset().top;
-  let offsetX = $('#canvas').offset().left;
-  let x = e.clientX - (offsetX - scrollLeft)
-  let y = e.clientY -(offsetY - scrollTop);
-  console.log(x + ',' + y);
+  x = e.clientX - (offsetX - scrollLeft),
+  y = e.clientY -(offsetY - scrollTop)
 
   if (mode = 'draw') {
     determinePositionForPlot(x,y)
@@ -345,10 +352,29 @@ function drawShapes(x,y,state) {
     ctx.arc(x,y,(distanceBetweenVerticalLines * circleSizePercentage),0,2*Math.PI);
     ctx.fill();
     ctx.closePath();
-    return "black";
+    return "circle";
   }
 
-  if (state === "black") {
+  //rectangle functionality commented out intentionally
+  /************************************************************/
+  // if (state === "circle") {
+  //   ctx.beginPath();
+  //   ctx.fillStyle = "white";
+  //   ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
+  //   ctx.fill();
+  //   ctx.closePath();
+  //
+  //   ctx.beginPath();
+  //   ctx.fillStyle = "black";
+  //   ctx.rect(x - (blackRectangleWidth/2), y -(blackRectangleHeight/2), blackRectangleWidth, blackRectangleHeight);
+  //   // ctx.arc(x,y,(distanceBetweenVerticalLines * circleSizePercentage),0,2*Math.PI);
+  //   ctx.fill();
+  //   ctx.closePath();
+  //   return "square";
+  // }
+/************************************************************/
+
+  if (state === "circle") {
     ctx.beginPath();
     ctx.fillStyle = "white";
     ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
@@ -356,23 +382,14 @@ function drawShapes(x,y,state) {
     ctx.closePath();
 
     ctx.beginPath();
-    ctx.fillStyle = "black";
-    ctx.rect(x - (blackRectangleWidth/2), y -(blackRectangleHeight/2), blackRectangleWidth, blackRectangleHeight);
-    // ctx.arc(x,y,(distanceBetweenVerticalLines * circleSizePercentage),0,2*Math.PI);
-    ctx.fill();
+    ctx.lineCap = lineCap;
+    ctx.lineWidth = lineWidth;
+    ctx.moveTo(x, (y + (distanceBetweenHorizontalLines/2)));
+    ctx.lineTo(x, (y - (distanceBetweenHorizontalLines/2)));
+    ctx.stroke();
     ctx.closePath();
     return "";
   }
-
-  // if (state === "blank") {
-  //   ctx.beginPath();
-  //   ctx.fillStyle = "white";
-  //   ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
-  //   ctx.fill();
-  //   ctx.closePath();
-  //
-  //
-  // }
 }
 
 //determinePositionForPlot function

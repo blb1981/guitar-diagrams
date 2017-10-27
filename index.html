@@ -17,16 +17,23 @@
   </head>
   <body>
   <div class="container">
+    <h2>Guitar Chord Diagram Generator</h2>
+    <p><strong>Warning:</strong> DO NOT RESIZE your browser in the middle of creating a diagram.</p>
     <div class="row">
       <div class="col-xs-6">
-        <h2>Guitar Chord Diagram Generator</h2>
         <canvas id="canvas"></canvas>
         <h2 id="scroll"></h2>
       </div>
 
-      <div class="col-xs-6" style="padding-top: 50px;">
-        <button class="btn btn-primary" id="reset">Reset</button>
-        <p><strong>Warning:</strong> If you resize your browser or objects are being drawn in incorrect locations, you may need to refresh your browser.</p>
+      <div class="col-xs-6">
+        <h3>Current Mode</h3>
+        <ul class="nav nav-pills">
+          <li id="drawLI" class="active"><a href="#" id="drawButton">Draw</a></li>
+          <li id="textLI"><a href="#" id="textButton">Text</a></li>
+        </ul>
+        <p>Draw mode allows you to click and draw dots<br>Text mode allows you to write on the diagram.</p>
+        <hr>
+        <button class="btn btn-primary" id="reset">Reset Diagram</button>
       </div>
     </div>
   </div>

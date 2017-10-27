@@ -10,6 +10,8 @@ let
   marginRight = canvasWidth * .9,
   marginTop = canvasHeight * .2,
   marginBottom = canvasHeight * .9,
+  leftTextSpace = canvasWidth - marginLeft,
+  topTextSpace = canvasHeight - marginTop,
   numberHorzontalLines = 5, //frets
   numberVerticalLines = 6, //strings
   lineWidth = 2,
@@ -17,8 +19,11 @@ let
   leftNut = false,
   nutWidth = lineWidth * 4,
   lineCap = 'round',
-  bodyBackgroundColor = 'lightgrey',
+  nutLineCap = 'round',
+  bodyBackgroundColor = '#ffffff',
   canvasBackground = 'white',
+  canvasBorderColor = 'black',
+  canvasBorderWidth = '2px',
   mode = 'draw',
   circleSizePercentage = .35,
   guitarWidth = marginRight - marginLeft,
@@ -174,6 +179,18 @@ $('#reset').click(function(){
   reset();
 });
 
+$('#drawButton').click(function(){
+  $('#drawLI').toggleClass('active');
+  $('#textLI').toggleClass('active');
+  mode = 'draw';
+});
+
+$('#textButton').click(function(){
+  $('#drawLI').toggleClass('active');
+  $('#textLI').toggleClass('active');
+  mode = 'text';
+});
+
 
 
 function reset() {
@@ -187,6 +204,9 @@ function reset() {
   //set canvas styles
   $('#canvas').css({
     'background-color': canvasBackground,
+    'border-color' : canvasBorderColor,
+    'border-style' : 'solid',
+    'border-width' : canvasBorderWidth
   });
 
   let x = marginLeft;
@@ -219,7 +239,7 @@ function reset() {
   //draw nut (if needed)
   if (topNut) {
     ctx.beginPath();
-    ctx.lineCap = 'round';
+    ctx.lineCap = nutLineCap;
     ctx.lineWidth = nutWidth;
     ctx.moveTo(marginLeft, marginTop);
     ctx.lineTo(marginRight, marginTop);
@@ -229,7 +249,7 @@ function reset() {
   //draw nut on left side (if needed)
   if (leftNut) {
     ctx.beginPath();
-    ctx.lineCap = 'round';
+    ctx.lineCap = nutLineCap;
     ctx.lineWidth = nutWidth;
     ctx.moveTo(marginLeft, marginTop);
     ctx.lineTo(marginLeft, marginBottom);
@@ -304,23 +324,6 @@ function reset() {
   console.log('Canvas reset');
 }
 
-
-// //Switch Modes
-// function switchMode() {
-//
-//   var mode = document.getElementById("mode").innerHTML;
-//
-//   if (mode === "Plot") {
-//     mode = "Text"
-//     document.getElementById("mode").innerHTML = mode;
-//   }
-//   else if (mode === "Text") {
-//     mode = "Plot"
-//     document.getElementById("mode").innerHTML = mode;
-//   }
-// }
-
-
 //for display purposes only
 //return mouse x/y
 $('#canvas').mousemove(function(e){
@@ -333,7 +336,7 @@ $('#canvas').click(function(e){
   x = e.clientX - (offsetX - scrollLeft),
   y = e.clientY -(offsetY - scrollTop)
 
-  if (mode = 'draw') {
+  if (mode === 'draw') {
     determinePositionForPlot(x,y)
   }
 });
@@ -392,35 +395,80 @@ function drawShapes(x,y,state) {
   }
 }
 
+function drawOpenShapes(x,y,state) {
+
+  if (state === ""){
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.rect(x - 9, y - 3, 18,18);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.arc(x,y + 6,7,0,2*Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+    return "circle";
+  }
+
+  else if (state === "circle"){
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.rect(x - 9, y - 3, 18,18);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("X",x,y + 12);
+    ctx.closePath();
+    return "x";
+  }
+
+  else if (state === "x"){
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.rect(x - 9, y - 3, 18,18);
+    ctx.fill();
+    ctx.closePath();
+
+    return "";
+  }
+}
+
+
 //determinePositionForPlot function
 function determinePositionForPlot(x,y) {
 
   //if open string
-  if (y > x1y0.yClickableBottom && y < x0y0.y) {
+  if (y > x1y0.yClickableBottom && y < x1y0.y) {
 
     if (x > x1y0.xClickableLeft && x < x1y0.xClickableRight) {
-      console.log('line 1 clicked');
+      x1y0.state = drawOpenShapes(x1y0.x, x1y0.y, x1y0.state)
     }
     else if (x > x2y0.xClickableLeft && x < x2y0.xClickableRight) {
-      console.log('line 2 clicked');
+      x2y0.state = drawOpenShapes(x2y0.x, x2y0.y, x2y0.state)
     }
     else if (x > x3y0.xClickableLeft && x < x3y0.xClickableRight) {
-      console.log('line 3 clicked');
+      x3y0.state = drawOpenShapes(x3y0.x, x3y0.y, x3y0.state)
     }
     else if (x > x4y0.xClickableLeft && x < x4y0.xClickableRight) {
-      console.log('line 4 clicked');
+      x4y0.state = drawOpenShapes(x4y0.x, x4y0.y, x4y0.state)
     }
     else if (x > x5y0.xClickableLeft && x < x5y0.xClickableRight) {
-      console.log('line 5 clicked');
+      x5y0.state = drawOpenShapes(x5y0.x, x5y0.y, x5y0.state)
     }
     else if (x > x6y0.xClickableLeft && x < x6y0.xClickableRight) {
-      console.log('line 6 clicked');
+      x6y0.state = drawOpenShapes(x6y0.x, x6y0.y, x6y0.state)
     }
     else if (x > x7y0.xClickableLeft && x < x7y0.xClickableRight) {
-      console.log('line 7 clicked');
+      x7y0.state = drawOpenShapes(x7y0.x, x7y0.y, x7y0.state)
     }
     else if (x > x8y0.xClickableLeft && x < x8y0.xClickableRight) {
-      console.log('line 8 clicked');
+      x8y0.state = drawOpenShapes(x8y0.x, x8y0.y, x8y0.state)
     }
   }
 

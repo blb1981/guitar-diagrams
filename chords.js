@@ -6,12 +6,12 @@ const ctx = c.getContext("2d");
 let
   canvasWidth = 300,
   canvasHeight = 350,
-  marginLeft = canvasWidth * .2,
+  marginLeft = canvasWidth * .1,
   marginRight = canvasWidth * .9,
-  marginTop = canvasHeight * .2,
+  marginTop = canvasHeight * .3,
   marginBottom = canvasHeight * .9,
-  leftTextSpace = canvasWidth - marginLeft,
-  topTextSpace = canvasHeight - marginTop,
+  // leftTextSpace = canvasWidth - marginLeft,
+  // topTextSpace = canvasHeight - marginTop,
   numberHorzontalLines = 5, //frets
   numberVerticalLines = 6, //strings
   lineWidth = 2,
@@ -34,13 +34,13 @@ let
   markerY = new Array(),
   rect = canvas.getBoundingClientRect()
   whiteRectangleWidth = distanceBetweenVerticalLines *.9,
-  whiteRectangleHeight = distanceBetweenHorizontalLines * .6,
+  whiteRectangleHeight = distanceBetweenHorizontalLines * .7,
+  openWhiteRectangleWidth = distanceBetweenVerticalLines * .6,
+  openWhiteRectangleHeight = distanceBetweenHorizontalLines * .6,
+  aboveTopNutYRectPosition = marginTop * .65,
+  aboveTopNutYCirclePosition = marginTop - (openWhiteRectangleHeight/2),
   blackRectangleWidth = distanceBetweenVerticalLines *.7,
-  blackRectangleHeight = distanceBetweenHorizontalLines * .6,
-  scrollTop = $(window).scrollTop(),
-  scrollLeft = $(window).scrollLeft(),
-  offsetY = $('#canvas').offset().top,
-  offsetX = $('#canvas').offset().left
+  blackRectangleHeight = distanceBetweenHorizontalLines * .6
   ;//end settings
 
 
@@ -176,7 +176,7 @@ $('body').css({
 });
 
 $('#reset').click(function(){
-  reset();
+  location.reload();
 });
 
 $('#drawButton').click(function(){
@@ -324,22 +324,32 @@ function reset() {
   console.log('Canvas reset');
 }
 
-//for display purposes only
-//return mouse x/y
+//returns mouse position
+function getMousePos(canvas, evt) {
+  var rect = canvas.getBoundingClientRect();
+    return {
+    x: evt.clientX - rect.left,
+    y: evt.clientY - rect.top
+  };
+}
+
+//displays mouse position
 $('#canvas').mousemove(function(e){
-  let x = e.clientX - (offsetX - scrollLeft)
-  let y = e.clientY -(offsetY - scrollTop);
-  $('#scroll').html('mousemove: ' + x + ',' + y);
+  var mousePos = getMousePos(c, e);
+  $('#scroll').html('mousemove: ' + mousePos.x + ',' + mousePos.y);
 });
 
+//determines what to do when canvas is clicked
 $('#canvas').click(function(e){
-  x = e.clientX - (offsetX - scrollLeft),
-  y = e.clientY -(offsetY - scrollTop)
+  var mousePos = getMousePos(c, e);
+  x = mousePos.x;
+  y = mousePos.y;
 
   if (mode === 'draw') {
-    determinePositionForPlot(x,y)
+    determinePositionForPlot(x,y);
   }
 });
+
 
 //draw shapes
 function drawShapes(x,y,state) {
@@ -399,14 +409,14 @@ function drawOpenShapes(x,y,state) {
 
   if (state === ""){
     ctx.beginPath();
-    ctx.fillStyle = "white";
-    ctx.rect(x - 9, y - 3, 18,18);
+    ctx.fillStyle = "blue";
+    ctx.rect(x - (openWhiteRectangleWidth/2), aboveTopNutYRectPosition, openWhiteRectangleWidth, openWhiteRectangleHeight);
     ctx.fill();
     ctx.closePath();
 
     ctx.beginPath();
     ctx.fillStyle = "black";
-    ctx.arc(x,y + 6,7,0,2*Math.PI);
+    ctx.arc(x,aboveTopNutYCirclePosition + 6,7,0,2*Math.PI);
     ctx.stroke();
     ctx.closePath();
     return "circle";

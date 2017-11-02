@@ -38,11 +38,12 @@ let
   openWhiteRectangleWidth = distanceBetweenVerticalLines * .6,
   openWhiteRectangleHeight = distanceBetweenHorizontalLines * .6,
   aboveTopNutYRectPosition = marginTop * .65,
-  aboveTopNutYCirclePosition = marginTop - (openWhiteRectangleHeight/2),
   blackRectangleWidth = distanceBetweenVerticalLines *.7,
   blackRectangleHeight = distanceBetweenHorizontalLines * .6,
   fontSizeForOpenShapes = '30', //in pixels
   fontForOpenShapes = 'Arial'
+  fontSizeForTitle = aboveTopNutYRectPosition * .8, //in pixels
+  fontForTitle = 'Times'
   ;//end settings
 
 
@@ -324,11 +325,11 @@ x8y6.state = "";
 
 
 //returns mouse position
-function getMousePos(canvas, evt) {
+function getMousePos(canvas, e) {
   var rect = canvas.getBoundingClientRect();
     return {
-    x: evt.clientX - rect.left,
-    y: evt.clientY - rect.top
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
   };
 }
 
@@ -345,13 +346,43 @@ $('#canvas').click(function(e){
   var mousePos = getMousePos(c, e);
   x = mousePos.x;
   y = mousePos.y;
-
-  // if (mode === 'draw') {
-  // }
   determineActionNeeded(x,y);
-
 });
 
+$('#chordTitleButton').click(function(){
+  title = $('#chordTitle').val();
+  printTitle(title);
+});
+
+$('#chordClearTitleButton').click(function(){
+  $('#chordTitle').val('');
+  clearTitle();
+});
+
+
+function printTitle(t) {
+  ctx.beginPath();
+  ctx.fillStyle = 'white';
+  ctx.rect(0, 0, canvasWidth, aboveTopNutYRectPosition);
+  ctx.fill();
+  ctx.closePath();
+
+  ctx.beginPath();
+  ctx.fillStyle = 'black';
+  ctx.font = fontSizeForTitle + 'px ' + fontForTitle;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(t, canvasWidth/2, aboveTopNutYRectPosition/2, canvasWidth);
+  ctx.closePath();
+}
+
+function clearTitle() {
+  ctx.beginPath();
+  ctx.fillStyle = 'white';
+  ctx.rect(0, 0, canvasWidth, aboveTopNutYRectPosition);
+  ctx.fill();
+  ctx.closePath();
+}
 
 //draw permanent shapes
 function drawShapes(x,y,state) {
@@ -387,7 +418,7 @@ function drawShapes(x,y,state) {
   //   ctx.closePath();
   //   return "square";
   // }
-/************************************************************/
+  /************************************************************/
 
   if (state === "circle") {
     ctx.beginPath();
@@ -407,7 +438,8 @@ function drawShapes(x,y,state) {
   }
 }
 
-function drawOpenShapes(x,y,state) {
+//draw permanent shapes above nute
+function drawOpenShapesAboveNut(x,y,state) {
 
   if (state === ''){
     ctx.beginPath();
@@ -462,44 +494,28 @@ function determineActionNeeded(x,y) {
   if (y > aboveTopNutYRectPosition && y < x1y0.y) {
 
     if (x > x1y0.xClickableLeft && x < x1y0.xClickableRight) {
-      if (mode === 'draw') {
-        x1y0.state = drawOpenShapes(x1y0.x, x1y0.y, x1y0.state)
-      }
+        x1y0.state = drawOpenShapesAboveNut(x1y0.x, x1y0.y, x1y0.state)
     }
     else if (x > x2y0.xClickableLeft && x < x2y0.xClickableRight) {
-      if (mode === 'draw') {
-        x2y0.state = drawOpenShapes(x2y0.x, x2y0.y, x2y0.state)
-      }
+      x2y0.state = drawOpenShapesAboveNut(x2y0.x, x2y0.y, x2y0.state)
     }
     else if (x > x3y0.xClickableLeft && x < x3y0.xClickableRight) {
-      if (mode === 'draw') {
-        x3y0.state = drawOpenShapes(x3y0.x, x3y0.y, x3y0.state)
-      }
+      x3y0.state = drawOpenShapesAboveNut(x3y0.x, x3y0.y, x3y0.state)
     }
     else if (x > x4y0.xClickableLeft && x < x4y0.xClickableRight) {
-      if (mode === 'draw') {
-        x4y0.state = drawOpenShapes(x4y0.x, x4y0.y, x4y0.state)
-      }
+      x4y0.state = drawOpenShapesAboveNut(x4y0.x, x4y0.y, x4y0.state)
     }
     else if (x > x5y0.xClickableLeft && x < x5y0.xClickableRight) {
-      if (mode === 'draw') {
-        x5y0.state = drawOpenShapes(x5y0.x, x5y0.y, x5y0.state)
-      }
+      x5y0.state = drawOpenShapesAboveNut(x5y0.x, x5y0.y, x5y0.state)
     }
     else if (x > x6y0.xClickableLeft && x < x6y0.xClickableRight) {
-      if (mode === 'draw') {
-        x6y0.state = drawOpenShapes(x6y0.x, x6y0.y, x6y0.state)
-      }
+      x6y0.state = drawOpenShapesAboveNut(x6y0.x, x6y0.y, x6y0.state)
     }
     else if (x > x7y0.xClickableLeft && x < x7y0.xClickableRight) {
-      if (mode === 'draw') {
-        x7y0.state = drawOpenShapes(x7y0.x, x7y0.y, x7y0.state)
-      }
+      x7y0.state = drawOpenShapesAboveNut(x7y0.x, x7y0.y, x7y0.state)
     }
     else if (x > x8y0.xClickableLeft && x < x8y0.xClickableRight) {
-      if (mode === 'draw') {
-        x8y0.state = drawOpenShapes(x8y0.x, x8y0.y, x8y0.state)
-      }
+      x8y0.state = drawOpenShapesAboveNut(x8y0.x, x8y0.y, x8y0.state)
     }
   }
 

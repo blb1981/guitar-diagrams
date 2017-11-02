@@ -354,10 +354,20 @@ $('#chordTitleButton').click(function(){
   printTitle(title);
 });
 
+$('#chordTitle').keypress(function(e){
+  if (e.which == 13) {
+    title = $('#chordTitle').val();
+    printTitle(title);
+    return false;
+  }
+});
+
 $('#chordClearTitleButton').click(function(){
   $('#chordTitle').val('');
   clearTitle();
 });
+
+
 
 
 function printTitle(t) {

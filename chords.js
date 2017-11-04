@@ -363,7 +363,7 @@ $('#canvas').mousemove(function(e){
 });
 
 //determines what to do when canvas is clicked
-$('#canvas').click(function(e){
+$('#canvas').mousedown(function(e){
   var mousePos = getMousePos(c, e);
   x = mousePos.x;
   y = mousePos.y;
@@ -389,15 +389,6 @@ $('#chordClearTitleButton').click(function(){
   $('#chordTitle').val('');
   clearTitle();
 });
-
-function showNumberModal() {
-  $('#numberModal').modal('show');
-}
-
-function hideNumberModal() {
-  $('#numberModal').modal('hide');
-}
-
 
 
 //title functions
@@ -527,49 +518,38 @@ function drawOpenShapesAboveNut(x,y,state) {
   }
 }
 
-function writeLeftSideNumber(x,y){
-
-  ctx.beginPath();
-  ctx.fillStyle = 'white';
-  ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
-  ctx.fill();
-  ctx.closePath();
-
-  leftSideText = number;
-  ctx.beginPath();
-  ctx.fillStyle = 'black';
-  ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(leftSideText, x, y);
-  ctx.closePath();
-
-  hideNumberModal();
-}
-
-function leftSideNumber(x,y,state) {
-  if (!state) {
-
-    showNumberModal(); //shows the modal
-
-    $('#numberModalSaveButton').click(function(){ //upon clicking the save button, launch a function
-      number = $('#numberInput').val();
-      writeLeftSideNumber(x,y);
-    });
-
-    return true;
-  }
-
-  if (state) {
+function leftSideNumber(x,y, state) {
+  if (state === '') {
+    num = prompt('Enter #');
     ctx.beginPath();
     ctx.fillStyle = 'white';
     ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
     ctx.fill();
     ctx.closePath();
 
-    return false;
+    ctx.beginPath();
+    ctx.fillStyle = 'black';
+    ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(num, x, y);
+    ctx.closePath();
+
+    return 'filled';
+  }
+
+  if (state !== '') {
+    ctx.beginPath();
+    ctx.fillStyle = 'white';
+    ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
+    ctx.fill();
+    ctx.closePath();
+
+    return '';
   }
 }
+
+
 
 //determineActionNeeded function
 function determineActionNeeded(x,y) {

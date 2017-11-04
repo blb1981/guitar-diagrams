@@ -6,7 +6,7 @@ const ctx = c.getContext("2d");
 let
   canvasWidth = 300,
   canvasHeight = 350,
-  marginLeft = canvasWidth * .1,
+  marginLeft = canvasWidth * .15,
   marginRight = canvasWidth * .9,
   marginTop = canvasHeight * .3,
   marginBottom = canvasHeight * .9,
@@ -34,7 +34,7 @@ let
   markerY = new Array(),
   rect = canvas.getBoundingClientRect()
   whiteRectangleWidth = distanceBetweenVerticalLines *.9,
-  whiteRectangleHeight = distanceBetweenHorizontalLines * .7,
+  whiteRectangleHeight = distanceBetweenHorizontalLines * .65,
   openWhiteRectangleWidth = distanceBetweenVerticalLines * .6,
   openWhiteRectangleHeight = distanceBetweenHorizontalLines * .6,
   aboveTopNutYRectPosition = marginTop * .65,
@@ -43,7 +43,8 @@ let
   fontSizeForOpenShapes = '30', //in pixels
   fontForOpenShapes = 'Arial'
   fontSizeForTitle = aboveTopNutYRectPosition * .8, //in pixels
-  fontForTitle = 'Times'
+  fontForTitle = 'Times',
+  leftSideTextMarker = marginLeft/3 //adjust as needed for text on left side
   ;//end settings
 
 
@@ -51,7 +52,7 @@ let
 function Note(x, y, state) {
   this.x = x;
   this.y = y;
-  this.state = "";
+  this.state = '';
   this.xClickableLeft = this.x - (distanceBetweenVerticalLines * .3);
   this.xClickableRight = this.x + (distanceBetweenVerticalLines * .3);
   this.yClickableBottom = this.y - (distanceBetweenVerticalLines * .3);
@@ -64,7 +65,7 @@ function Note(x, y, state) {
 //markerX[0] will be used for left side text
 for (i = 0; i <= numberVerticalLines; i++) {
   if (i === 0) {
-    markerX[i] = marginLeft; //needs adjusted for text
+    markerX[i] = leftSideTextMarker;
   }
   else if (i === 1) {
     markerX[i] = marginLeft;
@@ -92,85 +93,85 @@ for (i = 0; i <= numberHorzontalLines -1; i++) {
 //create objects for notes
 //supports 8 strings, up to 6 frets
 //x0s
-let x0y0 = new Note(markerX[0], markerY[0], "");
-let x0y1 = new Note(markerX[0], markerY[1], "");
-let x0y2 = new Note(markerX[0], markerY[2], "");
-let x0y3 = new Note(markerX[0], markerY[3], "");
-let x0y4 = new Note(markerX[0], markerY[4], "");
-let x0y5 = new Note(markerX[0], markerY[5], "");
-let x0y6 = new Note(markerX[0], markerY[6], "");
+let x0y0 = new Note(markerX[0], markerY[0], '');
+let x0y1 = new Note(markerX[0], markerY[1], '');
+let x0y2 = new Note(markerX[0], markerY[2], '');
+let x0y3 = new Note(markerX[0], markerY[3], '');
+let x0y4 = new Note(markerX[0], markerY[4], '');
+let x0y5 = new Note(markerX[0], markerY[5], '');
+let x0y6 = new Note(markerX[0], markerY[6], '');
 
 //x1s
-let x1y0 = new Note(markerX[1], markerY[0], "");
-let x1y1 = new Note(markerX[1], markerY[1], "");
-let x1y2 = new Note(markerX[1], markerY[2], "");
-let x1y3 = new Note(markerX[1], markerY[3], "");
-let x1y4 = new Note(markerX[1], markerY[4], "");
-let x1y5 = new Note(markerX[1], markerY[5], "");
-let x1y6 = new Note(markerX[1], markerY[6], "");
+let x1y0 = new Note(markerX[1], markerY[0], '');
+let x1y1 = new Note(markerX[1], markerY[1], '');
+let x1y2 = new Note(markerX[1], markerY[2], '');
+let x1y3 = new Note(markerX[1], markerY[3], '');
+let x1y4 = new Note(markerX[1], markerY[4], '');
+let x1y5 = new Note(markerX[1], markerY[5], '');
+let x1y6 = new Note(markerX[1], markerY[6], '');
 
 //x2s
-let x2y0 = new Note(markerX[2], markerY[0], "");
-let x2y1 = new Note(markerX[2], markerY[1], "");
-let x2y2 = new Note(markerX[2], markerY[2], "");
-let x2y3 = new Note(markerX[2], markerY[3], "");
-let x2y4 = new Note(markerX[2], markerY[4], "");
-let x2y5 = new Note(markerX[2], markerY[5], "");
-let x2y6 = new Note(markerX[2], markerY[6], "");
+let x2y0 = new Note(markerX[2], markerY[0], '');
+let x2y1 = new Note(markerX[2], markerY[1], '');
+let x2y2 = new Note(markerX[2], markerY[2], '');
+let x2y3 = new Note(markerX[2], markerY[3], '');
+let x2y4 = new Note(markerX[2], markerY[4], '');
+let x2y5 = new Note(markerX[2], markerY[5], '');
+let x2y6 = new Note(markerX[2], markerY[6], '');
 
 //x3s
-let x3y0 = new Note(markerX[3], markerY[0], "");
-let x3y1 = new Note(markerX[3], markerY[1], "");
-let x3y2 = new Note(markerX[3], markerY[2], "");
-let x3y3 = new Note(markerX[3], markerY[3], "");
-let x3y4 = new Note(markerX[3], markerY[4], "");
-let x3y5 = new Note(markerX[3], markerY[5], "");
-let x3y6 = new Note(markerX[3], markerY[6], "");
+let x3y0 = new Note(markerX[3], markerY[0], '');
+let x3y1 = new Note(markerX[3], markerY[1], '');
+let x3y2 = new Note(markerX[3], markerY[2], '');
+let x3y3 = new Note(markerX[3], markerY[3], '');
+let x3y4 = new Note(markerX[3], markerY[4], '');
+let x3y5 = new Note(markerX[3], markerY[5], '');
+let x3y6 = new Note(markerX[3], markerY[6], '');
 
 //x4s
-let x4y0 = new Note(markerX[4], markerY[0], "");
-let x4y1 = new Note(markerX[4], markerY[1], "");
-let x4y2 = new Note(markerX[4], markerY[2], "");
-let x4y3 = new Note(markerX[4], markerY[3], "");
-let x4y4 = new Note(markerX[4], markerY[4], "");
-let x4y5 = new Note(markerX[4], markerY[5], "");
-let x4y6 = new Note(markerX[4], markerY[6], "");
+let x4y0 = new Note(markerX[4], markerY[0], '');
+let x4y1 = new Note(markerX[4], markerY[1], '');
+let x4y2 = new Note(markerX[4], markerY[2], '');
+let x4y3 = new Note(markerX[4], markerY[3], '');
+let x4y4 = new Note(markerX[4], markerY[4], '');
+let x4y5 = new Note(markerX[4], markerY[5], '');
+let x4y6 = new Note(markerX[4], markerY[6], '');
 
 //x5s
-let x5y0 = new Note(markerX[5], markerY[0], "");
-let x5y1 = new Note(markerX[5], markerY[1], "");
-let x5y2 = new Note(markerX[5], markerY[2], "");
-let x5y3 = new Note(markerX[5], markerY[3], "");
-let x5y4 = new Note(markerX[5], markerY[4], "");
-let x5y5 = new Note(markerX[5], markerY[5], "");
-let x5y6 = new Note(markerX[5], markerY[6], "");
+let x5y0 = new Note(markerX[5], markerY[0], '');
+let x5y1 = new Note(markerX[5], markerY[1], '');
+let x5y2 = new Note(markerX[5], markerY[2], '');
+let x5y3 = new Note(markerX[5], markerY[3], '');
+let x5y4 = new Note(markerX[5], markerY[4], '');
+let x5y5 = new Note(markerX[5], markerY[5], '');
+let x5y6 = new Note(markerX[5], markerY[6], '');
 
 //x6s
-let x6y0 = new Note(markerX[6], markerY[0], "");
-let x6y1 = new Note(markerX[6], markerY[1], "");
-let x6y2 = new Note(markerX[6], markerY[2], "");
-let x6y3 = new Note(markerX[6], markerY[3], "");
-let x6y4 = new Note(markerX[6], markerY[4], "");
-let x6y5 = new Note(markerX[6], markerY[5], "");
-let x6y6 = new Note(markerX[6], markerY[6], "");
+let x6y0 = new Note(markerX[6], markerY[0], '');
+let x6y1 = new Note(markerX[6], markerY[1], '');
+let x6y2 = new Note(markerX[6], markerY[2], '');
+let x6y3 = new Note(markerX[6], markerY[3], '');
+let x6y4 = new Note(markerX[6], markerY[4], '');
+let x6y5 = new Note(markerX[6], markerY[5], '');
+let x6y6 = new Note(markerX[6], markerY[6], '');
 
 //x7s for 7 string guitar
-let x7y0 = new Note(markerX[7], markerY[0], "");
-let x7y1 = new Note(markerX[7], markerY[1], "");
-let x7y2 = new Note(markerX[7], markerY[2], "");
-let x7y3 = new Note(markerX[7], markerY[3], "");
-let x7y4 = new Note(markerX[7], markerY[4], "");
-let x7y5 = new Note(markerX[7], markerY[5], "");
-let x7y6 = new Note(markerX[7], markerY[6], "");
+let x7y0 = new Note(markerX[7], markerY[0], '');
+let x7y1 = new Note(markerX[7], markerY[1], '');
+let x7y2 = new Note(markerX[7], markerY[2], '');
+let x7y3 = new Note(markerX[7], markerY[3], '');
+let x7y4 = new Note(markerX[7], markerY[4], '');
+let x7y5 = new Note(markerX[7], markerY[5], '');
+let x7y6 = new Note(markerX[7], markerY[6], '');
 
 //x8s for 8 string guitar
-let x8y0 = new Note(markerX[8], markerY[0], "");
-let x8y1 = new Note(markerX[8], markerY[1], "");
-let x8y2 = new Note(markerX[8], markerY[2], "");
-let x8y3 = new Note(markerX[8], markerY[3], "");
-let x8y4 = new Note(markerX[8], markerY[4], "");
-let x8y5 = new Note(markerX[8], markerY[5], "");
-let x8y6 = new Note(markerX[8], markerY[6], "");
+let x8y0 = new Note(markerX[8], markerY[0], '');
+let x8y1 = new Note(markerX[8], markerY[1], '');
+let x8y2 = new Note(markerX[8], markerY[2], '');
+let x8y3 = new Note(markerX[8], markerY[3], '');
+let x8y4 = new Note(markerX[8], markerY[4], '');
+let x8y5 = new Note(markerX[8], markerY[5], '');
+let x8y6 = new Note(markerX[8], markerY[6], '');
 
 
 //set HTML body styles
@@ -178,10 +179,12 @@ $('body').css({
   'background-color': bodyBackgroundColor
 });
 
+//reset canvas button
 $('#reset').click(function(){
   location.reload();
 });
 
+//button group to switch modes
 $('#drawButton').click(function(){
   $('#drawLI').toggleClass('active');
   $('#textLI').toggleClass('active');
@@ -213,6 +216,14 @@ $('#canvas').css({
 
 let x = marginLeft;
 let y = marginTop;
+
+//draw white rectangle behind strings
+ctx.beginPath();
+ctx.fillStyle = 'white';
+ctx.rect(0, 0, canvasWidth, canvasHeight);
+ctx.fill();
+ctx.closePath();
+
 
 //draw vertical lines
 for (i = 1; i <= numberVerticalLines; i++) {
@@ -248,80 +259,90 @@ if (topNut) {
   ctx.stroke();
   ctx.closePath();
 }
-//draw nut on left side (if needed)
-if (leftNut) {
-  ctx.beginPath();
-  ctx.lineCap = nutLineCap;
-  ctx.lineWidth = nutWidth;
-  ctx.moveTo(marginLeft, marginTop);
-  ctx.lineTo(marginLeft, marginBottom);
-  ctx.stroke();
-  ctx.closePath();
-}
+
+// //draw nut on left side (if needed)
+// if (leftNut) {
+//   ctx.beginPath();
+//   ctx.lineCap = nutLineCap;
+//   ctx.lineWidth = nutWidth;
+//   ctx.moveTo(marginLeft, marginTop);
+//   ctx.lineTo(marginLeft, marginBottom);
+//   ctx.stroke();
+//   ctx.closePath();
+// }
 
 //set all states to blank for reset function
-x1y1.state = "";
-x1y2.state = "";
-x1y3.state = "";
-x1y4.state = "";
-x1y5.state = "";
-x1y6.state = "";
+//x0s
+x0y1.state = '';
+x0y2.state = '';
+x0y3.state = '';
+x0y4.state = '';
+x0y5.state = '';
+x0y6.state = '';
+
+//x1s
+x1y1.state = '';
+x1y2.state = '';
+x1y3.state = '';
+x1y4.state = '';
+x1y5.state = '';
+x1y6.state = '';
 
 //x2s
-x2y1.state = "";
-x2y2.state = "";
-x2y3.state = "";
-x2y4.state = "";
-x2y5.state = "";
-x2y6.state = "";
+x2y1.state = '';
+x2y2.state = '';
+x2y3.state = '';
+x2y4.state = '';
+x2y5.state = '';
+x2y6.state = '';
 
 //x3s
-x3y1.state = "";
-x3y2.state = "";
-x3y3.state = "";
-x3y4.state = "";
-x3y5.state = "";
-x3y6.state = "";
+x3y1.state = '';
+x3y2.state = '';
+x3y3.state = '';
+x3y4.state = '';
+x3y5.state = '';
+x3y6.state = '';
 
 //x4s
-x4y1.state = "";
-x4y2.state = "";
-x4y3.state = "";
-x4y4.state = "";
-x4y5.state = "";
-x4y6.state = "";
+x4y1.state = '';
+x4y2.state = '';
+x4y3.state = '';
+x4y4.state = '';
+x4y5.state = '';
+x4y6.state = '';
 
 //x5s
-x5y1.state = "";
-x5y2.state = "";
-x5y3.state = "";
-x5y4.state = "";
-x5y5.state = "";
-x5y6.state = "";
+x5y1.state = '';
+x5y2.state = '';
+x5y3.state = '';
+x5y4.state = '';
+x5y5.state = '';
+x5y6.state = '';
 
 //x6s
-x6y1.state = "";
-x6y2.state = "";
-x6y3.state = "";
-x6y4.state = "";
-x6y5.state = "";
-x6y6.state = "";
+x6y1.state = '';
+x6y2.state = '';
+x6y3.state = '';
+x6y4.state = '';
+x6y5.state = '';
+x6y6.state = '';
 
 //x7s
-x7y1.state = "";
-x7y2.state = "";
-x7y3.state = "";
-x7y4.state = "";
-x7y5.state = "";
-x7y6.state = "";
+x7y1.state = '';
+x7y2.state = '';
+x7y3.state = '';
+x7y4.state = '';
+x7y5.state = '';
+x7y6.state = '';
 
 //x8s
-x8y1.state = "";
-x8y2.state = "";
-x8y3.state = "";
-x8y4.state = "";
-x8y5.state = "";
-x8y6.state = "";
+x8y1.state = '';
+x8y2.state = '';
+x8y3.state = '';
+x8y4.state = '';
+x8y5.state = '';
+x8y6.state = '';
 
 
 //returns mouse position
@@ -362,14 +383,24 @@ $('#chordTitle').keypress(function(e){
   }
 });
 
+
+//listen for clicks on save button
 $('#chordClearTitleButton').click(function(){
   $('#chordTitle').val('');
   clearTitle();
 });
 
+function showNumberModal() {
+  $('#numberModal').modal('show');
+}
+
+function hideNumberModal() {
+  $('#numberModal').modal('hide');
+}
 
 
 
+//title functions
 function printTitle(t) {
   ctx.beginPath();
   ctx.fillStyle = 'white';
@@ -394,9 +425,9 @@ function clearTitle() {
   ctx.closePath();
 }
 
-//draw permanent shapes
+//draw shapes
 function drawShapes(x,y,state) {
-  if (state === "") {
+  if (state === '') {
     ctx.beginPath();
     ctx.fillStyle = "white";
     ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
@@ -444,11 +475,11 @@ function drawShapes(x,y,state) {
     ctx.lineTo(x, (y - (distanceBetweenHorizontalLines/2)));
     ctx.stroke();
     ctx.closePath();
-    return "";
+    return '';
   }
 }
 
-//draw permanent shapes above nute
+//draw shapes above nut
 function drawOpenShapesAboveNut(x,y,state) {
 
   if (state === ''){
@@ -496,6 +527,49 @@ function drawOpenShapesAboveNut(x,y,state) {
   }
 }
 
+function writeLeftSideNumber(x,y){
+
+  ctx.beginPath();
+  ctx.fillStyle = 'white';
+  ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
+  ctx.fill();
+  ctx.closePath();
+
+  leftSideText = number;
+  ctx.beginPath();
+  ctx.fillStyle = 'black';
+  ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(leftSideText, x, y);
+  ctx.closePath();
+
+  hideNumberModal();
+}
+
+function leftSideNumber(x,y,state) {
+  if (!state) {
+
+    showNumberModal(); //shows the modal
+
+    $('#numberModalSaveButton').click(function(){ //upon clicking the save button, launch a function
+      number = $('#numberInput').val();
+      writeLeftSideNumber(x,y);
+    });
+
+    return true;
+  }
+
+  if (state) {
+    ctx.beginPath();
+    ctx.fillStyle = 'white';
+    ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
+    ctx.fill();
+    ctx.closePath();
+
+    return false;
+  }
+}
 
 //determineActionNeeded function
 function determineActionNeeded(x,y) {
@@ -504,7 +578,7 @@ function determineActionNeeded(x,y) {
   if (y > aboveTopNutYRectPosition && y < x1y0.y) {
 
     if (x > x1y0.xClickableLeft && x < x1y0.xClickableRight) {
-        x1y0.state = drawOpenShapesAboveNut(x1y0.x, x1y0.y, x1y0.state)
+      x1y0.state = drawOpenShapesAboveNut(x1y0.x, x1y0.y, x1y0.state)
     }
     else if (x > x2y0.xClickableLeft && x < x2y0.xClickableRight) {
       x2y0.state = drawOpenShapesAboveNut(x2y0.x, x2y0.y, x2y0.state)
@@ -530,11 +604,21 @@ function determineActionNeeded(x,y) {
   }
 
   //if 1st fret
-  if (y > x1y1.yClickableBottom && y < x0y1.yClickableTop) {
+  if (y > x1y1.yClickableBottom && y < x1y1.yClickableTop) {
 
-    if (x > x1y1.xClickableLeft && x < x1y1.xClickableRight) {
+    //if left side clicked for numbers and mode is text
+    if (x < x0y1.xClickableRight) {
+      if (mode === 'text') {
+        x0y1.state = leftSideNumber(x0y1.x, x0y1.y, x0y1.state);
+      }
+    }
+    //if spot on guitar is clicked
+    else if (x > x1y1.xClickableLeft && x < x1y1.xClickableRight) {
       if (mode === 'draw') {
         x1y1.state = drawShapes(x1y1.x, x1y1.y, x1y1.state);
+      }
+      else if (mode === 'text') {
+
       }
     }
     else if (x > x2y1.xClickableLeft && x < x2y1.xClickableRight) {
@@ -575,11 +659,21 @@ function determineActionNeeded(x,y) {
   }
 
   //if 2nd fret
-  if (y > x1y2.yClickableBottom && y < x0y2.yClickableTop) {
+  if (y > x1y2.yClickableBottom && y < x1y2.yClickableTop) {
 
-    if (x > x1y2.xClickableLeft && x < x1y2.xClickableRight) {
+    //if left side clicked for numbers and mode is text
+    if (x < x0y2.xClickableRight) {
+      if (mode === 'text') {
+        x0y2.state = leftSideNumber(x0y2.x, x0y2.y, x0y2.state);
+      }
+    }
+    //if spot on guitar is clicked
+    else if (x > x1y2.xClickableLeft && x < x1y2.xClickableRight) {
       if (mode === 'draw') {
         x1y2.state = drawShapes(x1y2.x, x1y2.y, x1y2.state);
+      }
+      else if (mode === 'text') {
+
       }
     }
     else if (x > x2y2.xClickableLeft && x < x2y2.xClickableRight) {
@@ -620,11 +714,21 @@ function determineActionNeeded(x,y) {
   }
 
   //if 3rd fret
-  if (y > x1y3.yClickableBottom && y < x0y3.yClickableTop) {
+  if (y > x1y3.yClickableBottom && y < x1y3.yClickableTop) {
 
-    if (x > x1y3.xClickableLeft && x < x1y3.xClickableRight) {
+    //if left side clicked for numbers and mode is text
+    if (x < x0y3.xClickableRight) {
+      if (mode === 'text') {
+        x0y3.state = leftSideNumber(x0y3.x, x0y3.y, x0y3.state);
+      }
+    }
+    //if spot on guitar is clicked
+    else if (x > x1y3.xClickableLeft && x < x1y3.xClickableRight) {
       if (mode === 'draw') {
         x1y3.state = drawShapes(x1y3.x, x1y3.y, x1y3.state);
+      }
+      else if (mode === 'text') {
+
       }
     }
     else if (x > x2y3.xClickableLeft && x < x2y3.xClickableRight) {
@@ -665,11 +769,21 @@ function determineActionNeeded(x,y) {
   }
 
   //if 4th fret
-  if (y > x1y4.yClickableBottom && y < x0y4.yClickableTop) {
+  if (y > x1y4.yClickableBottom && y < x1y4.yClickableTop) {
 
-    if (x > x1y4.xClickableLeft && x < x1y4.xClickableRight) {
+    //if left side clicked for numbers and mode is text
+    if (x < x0y4.xClickableRight) {
+      if (mode === 'text') {
+        x0y4.state = leftSideNumber(x0y4.x, x0y4.y, x0y4.state);
+      }
+    }
+    //if spot on guitar is clicked
+    else if (x > x1y4.xClickableLeft && x < x1y4.xClickableRight) {
       if (mode === 'draw') {
         x1y4.state = drawShapes(x1y4.x, x1y4.y, x1y4.state);
+      }
+      else if (mode === 'text') {
+
       }
     }
     else if (x > x2y4.xClickableLeft && x < x2y4.xClickableRight) {
@@ -710,11 +824,21 @@ function determineActionNeeded(x,y) {
   }
 
   //if 5th fret
-  if (y > x1y5.yClickableBottom && y < x0y5.yClickableTop) {
+  if (y > x1y5.yClickableBottom && y < x1y5.yClickableTop) {
 
-    if (x > x1y5.xClickableLeft && x < x1y5.xClickableRight) {
+    //if left side clicked for numbers and mode is text
+    if (x < x0y5.xClickableRight) {
+      if (mode === 'text') {
+        x0y5.state = leftSideNumber(x0y5.x, x0y5.y, x0y5.state);
+      }
+    }
+    //if spot on guitar is clicked
+    else if (x > x1y5.xClickableLeft && x < x1y5.xClickableRight) {
       if (mode === 'draw') {
         x1y5.state = drawShapes(x1y5.x, x1y5.y, x1y5.state);
+      }
+      else if (mode === 'text') {
+
       }
     }
     else if (x > x2y5.xClickableLeft && x < x2y5.xClickableRight) {
@@ -755,11 +879,21 @@ function determineActionNeeded(x,y) {
   }
 
   //if 6th fret
-  if (y > x1y6.yClickableBottom && y < x0y6.yClickableTop) {
+  if (y > x1y6.yClickableBottom && y < x1y6.yClickableTop) {
 
-    if (x > x1y6.xClickableLeft && x < x1y6.xClickableRight) {
+    //if left side clicked for numbers and mode is text
+    if (x < x0y6.xClickableRight) {
+      if (mode === 'text') {
+        x0y6.state = leftSideNumber(x0y6.x, x0y6.y, x0y6.state);
+      }
+    }
+    //if spot on guitar is clicked
+    else if (x > x1y6.xClickableLeft && x < x1y6.xClickableRight) {
       if (mode === 'draw') {
         x1y6.state = drawShapes(x1y6.x, x1y6.y, x1y6.state);
+      }
+      else if (mode === 'text') {
+
       }
     }
     else if (x > x2y6.xClickableLeft && x < x2y6.xClickableRight) {

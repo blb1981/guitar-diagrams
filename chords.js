@@ -523,20 +523,25 @@ function drawOpenShapesAboveNut(x,y,state) {
 
 function leftSideNumber(x,y, state) {
   if (state === '') {
-    num = prompt('Enter #');
-    ctx.beginPath();
-    ctx.fillStyle = 'white';
-    ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
-    ctx.fill();
-    ctx.closePath();
+    bootbox.prompt("Enter number", function(result){
+      let num = result;
+      console.log(num);
 
-    ctx.beginPath();
-    ctx.fillStyle = 'black';
-    ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(num, x, y);
-    ctx.closePath();
+      ctx.beginPath();
+      ctx.fillStyle = 'white';
+      ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
+      ctx.fill();
+      ctx.closePath();
+
+      ctx.beginPath();
+      ctx.fillStyle = 'black';
+      ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(num, x, y);
+      ctx.closePath();
+      
+    });
 
     return 'filled';
   }

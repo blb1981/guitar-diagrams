@@ -44,7 +44,10 @@ let
   fontForOpenShapes = 'Arial'
   fontSizeForTitle = aboveTopNutYRectPosition * .8, //in pixels
   fontForTitle = 'Times',
-  leftSideTextMarker = marginLeft/3 //adjust as needed for text on left side
+  leftSideTextMarker = marginLeft/3, //adjust as needed for text on left side
+  singleDigitFretTextSize = (distanceBetweenVerticalLines * circleSizePercentage) *2,
+  doubleDigitFretTextSize = singleDigitFretTextSize * .7,
+  fontForFrets = 'Times'
   ;//end settings
 
 
@@ -549,6 +552,26 @@ function leftSideNumber(x,y, state) {
   }
 }
 
+function writeText(x,y) {
+  let entry = prompt("Enter text");
+
+  ctx.fillStyle = "white";
+  ctx.textAlign = "center";
+  ctx.textBaseline = 'middle';
+
+  if (entry.length  === 1) {
+    // ctx.font="32px Times";
+    ctx.font = singleDigitFretTextSize + 'px ' + fontForFrets;
+    ctx.fillText(entry, x, y);
+  }
+  else if (entry.length === 2){
+    ctx.font = doubleDigitFretTextSize + 'px ' + fontForFrets;
+    ctx.fillText(entry, x, y);
+  }
+  else {
+    alert("Number of digits must be 1 or 2");
+  }
+}
 
 
 //determineActionNeeded function
@@ -597,43 +620,64 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x1y1.state = drawShapes(x1y1.x, x1y1.y, x1y1.state);
       }
-      else if (mode === 'text') {
-
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x2y1.xClickableLeft && x < x2y1.xClickableRight) {
       if (mode === 'draw') {
         x2y1.state = drawShapes(x2y1.x, x2y1.y, x2y1.state);
       }
+      else if (mode === 'text') {
+        writeText(x2y1.x, x2y1.y);
+      }
     }
     else if (x > x3y1.xClickableLeft && x < x3y1.xClickableRight) {
       if (mode === 'draw') {
         x3y1.state = drawShapes(x3y1.x, x3y1.y, x3y1.state);
+      }
+      else if (mode === 'text') {
+        writeText(x3y1.x, x3y1.y);
       }
     }
     else if (x > x4y1.xClickableLeft && x < x4y1.xClickableRight) {
       if (mode === 'draw') {
         x4y1.state = drawShapes(x4y1.x, x4y1.y, x4y1.state);
       }
+      else if (mode === 'text') {
+        writeText(x4y1.x, x4y1.y);
+      }
     }
     else if (x > x5y1.xClickableLeft && x < x5y1.xClickableRight) {
       if (mode === 'draw') {
         x5y1.state = drawShapes(x5y1.x, x5y1.y, x5y1.state);
+      }
+      else if (mode === 'text') {
+        writeText(x5y1.x, x5y1.y);
       }
     }
     else if (x > x6y1.xClickableLeft && x < x6y1.xClickableRight) {
       if (mode === 'draw') {
         x6y1.state = drawShapes(x6y1.x, x6y1.y, x6y1.state);
       }
+      else if (mode === 'text') {
+        writeText(x6y1.x, x6y1.y);
+      }
     }
     else if (x > x7y1.xClickableLeft && x < x7y1.xClickableRight) {
       if (mode === 'draw') {
         x7y1.state = drawShapes(x7y1.x, x7y1.y, x7y1.state);
       }
+      else if (mode === 'text') {
+        writeText(x7y1.x, x7y1.y);
+      }
     }
     else if (x > x8y1.xClickableLeft && x < x8y1.xClickableRight) {
       if (mode === 'draw') {
         x8y1.state = drawShapes(x8y1.x, x8y1.y, x8y1.state);
+      }
+      else if (mode === 'text') {
+        writeText(x8y1.x, x8y1.y);
       }
     }
   }

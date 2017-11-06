@@ -6,7 +6,7 @@ const ctx = c.getContext("2d");
 let
   canvasWidth = 300,
   canvasHeight = 350,
-  marginLeft = canvasWidth * .15,
+  marginLeft = canvasWidth * .17,
   marginRight = canvasWidth * .9,
   marginTop = canvasHeight * .3,
   marginBottom = canvasHeight * .9,
@@ -40,7 +40,7 @@ let
   aboveTopNutYRectPosition = marginTop * .65,
   blackRectangleWidth = distanceBetweenVerticalLines *.7,
   blackRectangleHeight = distanceBetweenHorizontalLines * .6,
-  fontSizeForOpenShapes = '30', //in pixels
+  fontSizeForOpenShapes = '27', //in pixels
   fontForOpenShapes = 'Arial'
   fontSizeForTitle = aboveTopNutYRectPosition * .8, //in pixels
   fontForTitle = 'Times',
@@ -523,27 +523,37 @@ function drawOpenShapesAboveNut(x,y,state) {
 
 function leftSideNumber(x,y, state) {
   if (state === '') {
-    bootbox.prompt("Enter number", function(result){
-      let num = result;
-      console.log(num);
+    bootbox.prompt({
+      size: 'small',
+      title: 'Enter number...',
+      inputType: 'number',
+      backdrop: true,
+      onEscape: 'false',
+      min: 0,
+      callback: function(result){
+        let num = result;
+        console.log(num);
 
-      ctx.beginPath();
-      ctx.fillStyle = 'white';
-      ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
-      ctx.fill();
-      ctx.closePath();
+        if (num !== null) {
+          ctx.beginPath();
+          ctx.fillStyle = 'white';
+          ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
+          ctx.fill();
+          ctx.closePath();
 
-      ctx.beginPath();
-      ctx.fillStyle = 'black';
-      ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(num, x, y);
-      ctx.closePath();
-      
+          ctx.beginPath();
+          ctx.fillStyle = 'black';
+          ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(num, x, y);
+          ctx.closePath();
+        }
+        return 'filled';
+      },
+
     });
 
-    return 'filled';
   }
 
   if (state !== '') {

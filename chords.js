@@ -10,8 +10,6 @@ let
   marginRight = canvasWidth * .9,
   marginTop = canvasHeight * .3,
   marginBottom = canvasHeight * .9,
-  // leftTextSpace = canvasWidth - marginLeft,
-  // topTextSpace = canvasHeight - marginTop,
   numberHorzontalLines = 5, //frets
   numberVerticalLines = 6, //strings
   lineWidth = 2,
@@ -409,6 +407,8 @@ function printTitle(t) {
   ctx.textBaseline = 'middle';
   ctx.fillText(t, canvasWidth/2, aboveTopNutYRectPosition/2, canvasWidth);
   ctx.closePath();
+
+  $('#chordTitle').val('');
 }
 
 function clearTitle() {
@@ -528,8 +528,7 @@ function leftSideNumber(x,y, state) {
       title: 'Enter number...',
       inputType: 'number',
       backdrop: true,
-      onEscape: 'false',
-      min: 0,
+      onEscape: true,
       callback: function(result){
         let num = result;
         console.log(num);
@@ -568,25 +567,46 @@ function leftSideNumber(x,y, state) {
 }
 
 function writeText(x,y) {
-  let entry = prompt("Enter text");
+  bootbox.prompt({
+    size: 'small',
+    title: 'Enter text...',
+    backdrop: true,
+    onEscape: true,
+    callback: function(result){
+      let entry = result;
+      ctx.textAlign = "center";
+      ctx.textBaseline = 'middle';
 
-  ctx.fillStyle = "white";
-  ctx.textAlign = "center";
-  ctx.textBaseline = 'middle';
+      if (entry !== null) {
+        if (entry.length  === 1) {
+          drawShapes(x,y,'');
+          ctx.fillStyle = "white";
+          ctx.font = singleDigitFretTextSize + 'px ' + fontForFrets;
+          ctx.fillText(entry, x, y);
+        }
+        else if (entry.length === 2){
+          drawShapes(x,y,'');
+          ctx.fillStyle = "white";
+          ctx.font = doubleDigitFretTextSize + 'px ' + fontForFrets;
+          ctx.fillText(entry, x, y);
+        }
+        else if (entry > 2) {
+          this.modal('hide');
+          bootbox.alert({
+            size: 'small',
+            backdrop: true,
+            onEscape: true,
+            message: 'Number of digits must be 1 or 2',
+          });
+        }
+        console.log(entry);
+        // return 'filled';
+      }
+    }
+  });
 
-  if (entry.length  === 1) {
-    // ctx.font="32px Times";
-    ctx.font = singleDigitFretTextSize + 'px ' + fontForFrets;
-    ctx.fillText(entry, x, y);
-  }
-  else if (entry.length === 2){
-    ctx.font = doubleDigitFretTextSize + 'px ' + fontForFrets;
-    ctx.fillText(entry, x, y);
-  }
-  else {
-    alert("Number of digits must be 1 or 2");
-  }
 }
+
 
 
 //determineActionNeeded function
@@ -643,7 +663,7 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x2y1.state = drawShapes(x2y1.x, x2y1.y, x2y1.state);
       }
-      else if (mode === 'text') {
+      else if (mode === 'text' && x2y1.state !== '') {
         writeText(x2y1.x, x2y1.y);
       }
     }
@@ -651,7 +671,7 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x3y1.state = drawShapes(x3y1.x, x3y1.y, x3y1.state);
       }
-      else if (mode === 'text') {
+      else if (mode === 'text' && x3y1.state !== '') {
         writeText(x3y1.x, x3y1.y);
       }
     }
@@ -659,7 +679,7 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x4y1.state = drawShapes(x4y1.x, x4y1.y, x4y1.state);
       }
-      else if (mode === 'text') {
+      else if (mode === 'text' && x4y1.state !== '') {
         writeText(x4y1.x, x4y1.y);
       }
     }
@@ -667,7 +687,7 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x5y1.state = drawShapes(x5y1.x, x5y1.y, x5y1.state);
       }
-      else if (mode === 'text') {
+      else if (mode === 'text' && x5y1.state !== '') {
         writeText(x5y1.x, x5y1.y);
       }
     }
@@ -675,7 +695,7 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x6y1.state = drawShapes(x6y1.x, x6y1.y, x6y1.state);
       }
-      else if (mode === 'text') {
+      else if (mode === 'text' && x6y1.state !== '') {
         writeText(x6y1.x, x6y1.y);
       }
     }
@@ -683,7 +703,7 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x7y1.state = drawShapes(x7y1.x, x7y1.y, x7y1.state);
       }
-      else if (mode === 'text') {
+      else if (mode === 'text' && x7y1.state !== '') {
         writeText(x7y1.x, x7y1.y);
       }
     }
@@ -691,7 +711,7 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x8y1.state = drawShapes(x8y1.x, x8y1.y, x8y1.state);
       }
-      else if (mode === 'text') {
+      else if (mode === 'text' && x8y1.state !== '') {
         writeText(x8y1.x, x8y1.y);
       }
     }
@@ -711,43 +731,64 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x1y2.state = drawShapes(x1y2.x, x1y2.y, x1y2.state);
       }
-      else if (mode === 'text') {
-
+      else if (mode === 'text' && x1y2.state !== '') {
+        writeText(x1y2.x, x1y2.y);
       }
     }
     else if (x > x2y2.xClickableLeft && x < x2y2.xClickableRight) {
       if (mode === 'draw') {
         x2y2.state = drawShapes(x2y2.x, x2y2.y, x2y2.state);
       }
+      else if (mode === 'text' && x2y2.state !== '') {
+        writeText(x2y2.x, x2y2.y);
+      }
     }
     else if (x > x3y2.xClickableLeft && x < x3y2.xClickableRight) {
       if (mode === 'draw') {
         x3y2.state = drawShapes(x3y2.x, x3y2.y, x3y2.state);
+      }
+      else if (mode === 'text' && x3y2.state !== '') {
+        writeText(x3y2.x, x3y2.y);
       }
     }
     else if (x > x4y2.xClickableLeft && x < x4y2.xClickableRight) {
       if (mode === 'draw') {
         x4y2.state = drawShapes(x4y2.x, x4y2.y, x4y2.state);
       }
+      else if (mode === 'text' && x4y2.state !== '') {
+        writeText(x4y2.x, x4y2.y);
+      }
     }
     else if (x > x5y2.xClickableLeft && x < x5y2.xClickableRight) {
       if (mode === 'draw') {
         x5y2.state = drawShapes(x5y2.x, x5y2.y, x5y2.state);
+      }
+      else if (mode === 'text' && x5y2.state !== '') {
+        writeText(x5y2.x, x5y2.y);
       }
     }
     else if (x > x6y2.xClickableLeft && x < x6y2.xClickableRight) {
       if (mode === 'draw') {
         x6y2.state = drawShapes(x6y2.x, x6y2.y, x6y2.state);
       }
+      else if (mode === 'text' && x6y2.state !== '') {
+        writeText(x6y2.x, x6y2.y);
+      }
     }
     else if (x > x7y2.xClickableLeft && x < x7y2.xClickableRight) {
       if (mode === 'draw') {
         x7y2.state = drawShapes(x7y2.x, x7y2.y, x7y2.state);
       }
+      else if (mode === 'text' && x7y2.state !== '') {
+        writeText(x7y2.x, x7y2.y);
+      }
     }
     else if (x > x8y2.xClickableLeft && x < x8y2.xClickableRight) {
       if (mode === 'draw') {
         x8y2.state = drawShapes(x8y2.x, x8y2.y, x8y2.state);
+      }
+      else if (mode === 'text' && x8y2.state !== '') {
+        writeText(x8y2.x, x8y2.y);
       }
     }
   }
@@ -766,43 +807,64 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x1y3.state = drawShapes(x1y3.x, x1y3.y, x1y3.state);
       }
-      else if (mode === 'text') {
-
+      else if (mode === 'text' && x1y3.state !== '') {
+        writeText(x1y3.x, x1y3.y);
       }
     }
     else if (x > x2y3.xClickableLeft && x < x2y3.xClickableRight) {
       if (mode === 'draw') {
         x2y3.state = drawShapes(x2y3.x, x2y3.y, x2y3.state);
       }
+      else if (mode === 'text' && x2y3.state !== '') {
+        writeText(x2y3.x, x2y3.y);
+      }
     }
     else if (x > x3y3.xClickableLeft && x < x3y3.xClickableRight) {
       if (mode === 'draw') {
         x3y3.state = drawShapes(x3y3.x, x3y3.y, x3y3.state);
+      }
+      else if (mode === 'text' && x3y3.state !== '') {
+        writeText(x3y3.x, x3y3.y);
       }
     }
     else if (x > x4y3.xClickableLeft && x < x4y3.xClickableRight) {
       if (mode === 'draw') {
         x4y3.state = drawShapes(x4y3.x, x4y3.y, x4y3.state);
       }
+      else if (mode === 'text' && x4y3.state !== '') {
+        writeText(x4y3.x, x4y3.y);
+      }
     }
     else if (x > x5y3.xClickableLeft && x < x5y3.xClickableRight) {
       if (mode === 'draw') {
         x5y3.state = drawShapes(x5y3.x, x5y3.y, x5y3.state);
+      }
+      else if (mode === 'text' && x5y3.state !== '') {
+        writeText(x5y3.x, x5y3.y);
       }
     }
     else if (x > x6y3.xClickableLeft && x < x6y3.xClickableRight) {
       if (mode === 'draw') {
         x6y3.state = drawShapes(x6y3.x, x6y3.y, x6y3.state);
       }
+      else if (mode === 'text' && x6y3.state !== '') {
+        writeText(x6y3.x, x6y3.y);
+      }
     }
     else if (x > x7y3.xClickableLeft && x < x7y3.xClickableRight) {
       if (mode === 'draw') {
         x7y3.state = drawShapes(x7y3.x, x7y3.y, x7y3.state);
       }
+      else if (mode === 'text' && x7y3.state !== '') {
+        writeText(x7y3.x, x7y3.y);
+      }
     }
     else if (x > x8y3.xClickableLeft && x < x8y3.xClickableRight) {
       if (mode === 'draw') {
         x8y3.state = drawShapes(x8y3.x, x8y3.y, x8y3.state);
+      }
+      else if (mode === 'text' && x8y3.state !== '') {
+        writeText(x8y3.x, x8y3.y);
       }
     }
   }
@@ -821,43 +883,64 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x1y4.state = drawShapes(x1y4.x, x1y4.y, x1y4.state);
       }
-      else if (mode === 'text') {
-
+      else if (mode === 'text' && x1y4.state !== '') {
+        writeText(x1y4.x, x1y4.y);
       }
     }
     else if (x > x2y4.xClickableLeft && x < x2y4.xClickableRight) {
       if (mode === 'draw') {
         x2y4.state = drawShapes(x2y4.x, x2y4.y, x2y4.state);
       }
+      else if (mode === 'text' && x2y4.state !== '') {
+        writeText(x2y4.x, x2y4.y);
+      }
     }
     else if (x > x3y4.xClickableLeft && x < x3y4.xClickableRight) {
       if (mode === 'draw') {
         x3y4.state = drawShapes(x3y4.x, x3y4.y, x3y4.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x4y4.xClickableLeft && x < x4y4.xClickableRight) {
       if (mode === 'draw') {
         x4y4.state = drawShapes(x4y4.x, x4y4.y, x4y4.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x5y4.xClickableLeft && x < x5y4.xClickableRight) {
       if (mode === 'draw') {
         x5y4.state = drawShapes(x5y4.x, x5y4.y, x5y4.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x6y4.xClickableLeft && x < x6y4.xClickableRight) {
       if (mode === 'draw') {
         x6y4.state = drawShapes(x6y4.x, x6y4.y, x6y4.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x7y4.xClickableLeft && x < x7y4.xClickableRight) {
       if (mode === 'draw') {
         x7y4.state = drawShapes(x7y4.x, x7y4.y, x7y4.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x8y4.xClickableLeft && x < x8y4.xClickableRight) {
       if (mode === 'draw') {
         x8y4.state = drawShapes(x8y4.x, x8y4.y, x8y4.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
   }
@@ -876,43 +959,64 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x1y5.state = drawShapes(x1y5.x, x1y5.y, x1y5.state);
       }
-      else if (mode === 'text') {
-
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x2y5.xClickableLeft && x < x2y5.xClickableRight) {
       if (mode === 'draw') {
         x2y5.state = drawShapes(x2y5.x, x2y5.y, x2y5.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x3y5.xClickableLeft && x < x3y5.xClickableRight) {
       if (mode === 'draw') {
         x3y5.state = drawShapes(x3y5.x, x3y5.y, x3y5.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x4y5.xClickableLeft && x < x4y5.xClickableRight) {
       if (mode === 'draw') {
         x4y5.state = drawShapes(x4y5.x, x4y5.y, x4y5.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x5y5.xClickableLeft && x < x5y5.xClickableRight) {
       if (mode === 'draw') {
         x5y5.state = drawShapes(x5y5.x, x5y5.y, x5y5.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x6y5.xClickableLeft && x < x6y5.xClickableRight) {
       if (mode === 'draw') {
         x6y5.state = drawShapes(x6y5.x, x6y5.y, x6y5.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x7y5.xClickableLeft && x < x7y5.xClickableRight) {
       if (mode === 'draw') {
         x7y5.state = drawShapes(x7y5.x, x7y5.y, x7y5.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x8y5.xClickableLeft && x < x8y5.xClickableRight) {
       if (mode === 'draw') {
         x8y5.state = drawShapes(x8y5.x, x8y5.y, x8y5.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
   }
@@ -931,43 +1035,64 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x1y6.state = drawShapes(x1y6.x, x1y6.y, x1y6.state);
       }
-      else if (mode === 'text') {
-
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x2y6.xClickableLeft && x < x2y6.xClickableRight) {
       if (mode === 'draw') {
         x2y6.state = drawShapes(x2y6.x, x2y6.y, x2y6.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x3y6.xClickableLeft && x < x3y6.xClickableRight) {
       if (mode === 'draw') {
         x3y6.state = drawShapes(x3y6.x, x3y6.y, x3y6.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x4y6.xClickableLeft && x < x4y6.xClickableRight) {
       if (mode === 'draw') {
         x4y6.state = drawShapes(x4y6.x, x4y6.y, x4y6.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x5y6.xClickableLeft && x < x5y6.xClickableRight) {
       if (mode === 'draw') {
         x5y6.state = drawShapes(x5y6.x, x5y6.y, x5y6.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
     else if (x > x6y6.xClickableLeft && x < x6y6.xClickableRight) {
       if (mode === 'draw') {
         x6y6.state = drawShapes(x6y6.x, x6y6.y, x6y6.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x7y6.xClickableLeft && x < x7y6.xClickableRight) {
       if (mode === 'draw') {
         x7y6.state = drawShapes(x7y6.x, x7y6.y, x7y6.state);
       }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
+      }
     }
     else if (x > x8y6.xClickableLeft && x < x8y6.xClickableRight) {
       if (mode === 'draw') {
         x8y6.state = drawShapes(x8y6.x, x8y6.y, x8y6.state);
+      }
+      else if (mode === 'text' && x1y1.state !== '') {
+        writeText(x1y1.x, x1y1.y);
       }
     }
   }

@@ -403,7 +403,7 @@ $('#chordClearTitleButton').click(function(){
 function printTitle(t) {
   ctx.beginPath();
   ctx.fillStyle = 'white';
-  ctx.rect(0, 0, canvasWidth, aboveTopNutYRectPosition);
+  ctx.rect(1, 1, canvasWidth-2, aboveTopNutYRectPosition);
   ctx.fill();
   ctx.closePath();
 
@@ -421,7 +421,7 @@ function printTitle(t) {
 function clearTitle() {
   ctx.beginPath();
   ctx.fillStyle = 'white';
-  ctx.rect(0, 0, canvasWidth, aboveTopNutYRectPosition);
+  ctx.rect(1, 1, canvasWidth-2, aboveTopNutYRectPosition);
   ctx.fill();
   ctx.closePath();
 }

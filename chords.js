@@ -10,15 +10,15 @@ let
   marginRight = canvasWidth * .9,
   marginTop = canvasHeight * .3,
   marginBottom = canvasHeight * .9,
-  numberHorzontalLines = 5, //frets
-  numberVerticalLines = 6, //strings
+  numberHorzontalLines = 5,
+  numberVerticalLines = 6,
   lineWidth = 2,
   topNut = true,
   leftNut = false,
   nutWidth = lineWidth * 4,
   lineCap = 'round',
   nutLineCap = 'round',
-  bodyBackgroundColor = 'lightgrey',
+  bodyBackgroundColor = 'white',
   canvasBackground = 'white',
   canvasBorderColor = 'black',
   canvasBorderWidth = '0px',
@@ -33,7 +33,7 @@ let
   rect = canvas.getBoundingClientRect()
   whiteRectangleWidth = distanceBetweenVerticalLines *.9,
   whiteRectangleHeight = distanceBetweenHorizontalLines * .65,
-  openWhiteRectangleWidth = distanceBetweenVerticalLines * .6,
+  openWhiteRectangleWidth = distanceBetweenVerticalLines * .7,
   openWhiteRectangleHeight = distanceBetweenHorizontalLines * .6,
   aboveTopNutYRectPosition = marginTop * .65,
   blackRectangleWidth = distanceBetweenVerticalLines *.7,
@@ -43,8 +43,8 @@ let
   fontSizeForTitle = aboveTopNutYRectPosition * .8, //in pixels
   fontForTitle = 'Times',
   leftSideTextMarker = marginLeft/3, //adjust as needed for text on left side
-  singleDigitFretTextSize = (distanceBetweenVerticalLines * circleSizePercentage) *2,
-  doubleDigitFretTextSize = singleDigitFretTextSize * .7,
+  singleDigitNoteTextSize = (distanceBetweenVerticalLines * circleSizePercentage) *2,
+  doubleDigitNoteTextSize = singleDigitNoteTextSize * .7,
   fontForFrets = 'Times'
   ;//end settings
 
@@ -92,7 +92,7 @@ for (i = 0; i <= numberHorzontalLines -1; i++) {
 }
 
 //create objects for notes
-//supports 8 strings, up to 6 frets
+//supports 8 strings, up to 6 horizontal lines
 //x0s
 let x0y0 = new Note(markerX[0], markerY[0], '');
 let x0y1 = new Note(markerX[0], markerY[1], '');
@@ -218,10 +218,17 @@ $('#canvas').css({
 let x = marginLeft;
 let y = marginTop;
 
-//draw white rectangle behind strings
+//draw white rectangle behind guitar
+ctx.beginPath();
+ctx.fillStyle = 'black';
+ctx.rect(0, 0, canvasWidth, canvasHeight);
+ctx.fill();
+ctx.closePath();
+
+//draw white rectangle behind guitar
 ctx.beginPath();
 ctx.fillStyle = 'white';
-ctx.rect(0, 0, canvasWidth, canvasHeight);
+ctx.rect(1, 1, canvasWidth-2, canvasHeight-2);
 ctx.fill();
 ctx.closePath();
 
@@ -355,13 +362,13 @@ function getMousePos(canvas, e) {
   };
 }
 
-//displays mouse position
-$('#canvas').mousemove(function(e){
-  var mousePos = getMousePos(c, e);
-  x = mousePos.x;
-  y = mousePos.y;
-  $('#scroll').html('mousemove: ' + x + ',' + y);
-});
+// //displays mouse position
+// $('#canvas').mousemove(function(e){
+//   var mousePos = getMousePos(c, e);
+//   x = mousePos.x;
+//   y = mousePos.y;
+//   $('#scroll').html('mousemove: ' + x + ',' + y);
+// });
 
 //determines what to do when canvas is clicked
 $('#canvas').mousedown(function(e){
@@ -531,7 +538,6 @@ function leftSideNumber(x,y, state) {
       onEscape: true,
       callback: function(result){
         let num = result;
-        console.log(num);
 
         if (num !== null) {
           ctx.beginPath();
@@ -581,13 +587,13 @@ function writeText(x,y) {
         if (entry.length  === 1) {
           drawShapes(x,y,'');
           ctx.fillStyle = "white";
-          ctx.font = singleDigitFretTextSize + 'px ' + fontForFrets;
+          ctx.font = singleDigitNoteTextSize + 'px ' + fontForFrets;
           ctx.fillText(entry, x, y);
         }
         else if (entry.length === 2){
           drawShapes(x,y,'');
           ctx.fillStyle = "white";
-          ctx.font = doubleDigitFretTextSize + 'px ' + fontForFrets;
+          ctx.font = doubleDigitNoteTextSize + 'px ' + fontForFrets;
           ctx.fillText(entry, x, y);
         }
         else if (entry > 2) {
@@ -596,10 +602,9 @@ function writeText(x,y) {
             size: 'small',
             backdrop: true,
             onEscape: true,
-            message: 'Number of digits must be 1 or 2',
+            message: 'Number of characters must be 2 or less.',
           });
         }
-        console.log(entry);
         // return 'filled';
       }
     }
@@ -641,7 +646,7 @@ function determineActionNeeded(x,y) {
     }
   }
 
-  //if 1st fret
+  //if 1st horizontal line
   if (y > x1y1.yClickableBottom && y < x1y1.yClickableTop) {
 
     //if left side clicked for numbers and mode is text
@@ -717,7 +722,7 @@ function determineActionNeeded(x,y) {
     }
   }
 
-  //if 2nd fret
+  //if 2nd horizontal line
   if (y > x1y2.yClickableBottom && y < x1y2.yClickableTop) {
 
     //if left side clicked for numbers and mode is text
@@ -793,7 +798,7 @@ function determineActionNeeded(x,y) {
     }
   }
 
-  //if 3rd fret
+  //if 3rd horizontal line
   if (y > x1y3.yClickableBottom && y < x1y3.yClickableTop) {
 
     //if left side clicked for numbers and mode is text
@@ -869,7 +874,7 @@ function determineActionNeeded(x,y) {
     }
   }
 
-  //if 4th fret
+  //if 4th horizontal line
   if (y > x1y4.yClickableBottom && y < x1y4.yClickableTop) {
 
     //if left side clicked for numbers and mode is text
@@ -899,53 +904,53 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x3y4.state = drawShapes(x3y4.x, x3y4.y, x3y4.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x3y4.state !== '') {
+        writeText(x3y4.x, x3y4.y);
       }
     }
     else if (x > x4y4.xClickableLeft && x < x4y4.xClickableRight) {
       if (mode === 'draw') {
         x4y4.state = drawShapes(x4y4.x, x4y4.y, x4y4.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x4y4.state !== '') {
+        writeText(x4y4.x, x4y4.y);
       }
     }
     else if (x > x5y4.xClickableLeft && x < x5y4.xClickableRight) {
       if (mode === 'draw') {
         x5y4.state = drawShapes(x5y4.x, x5y4.y, x5y4.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x5y4.state !== '') {
+        writeText(x5y4.x, x5y4.y);
       }
     }
     else if (x > x6y4.xClickableLeft && x < x6y4.xClickableRight) {
       if (mode === 'draw') {
         x6y4.state = drawShapes(x6y4.x, x6y4.y, x6y4.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x6y4.state !== '') {
+        writeText(x6y4.x, x6y4.y);
       }
     }
     else if (x > x7y4.xClickableLeft && x < x7y4.xClickableRight) {
       if (mode === 'draw') {
         x7y4.state = drawShapes(x7y4.x, x7y4.y, x7y4.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x7y4.state !== '') {
+        writeText(x7y4.x, x7y4.y);
       }
     }
     else if (x > x8y4.xClickableLeft && x < x8y4.xClickableRight) {
       if (mode === 'draw') {
         x8y4.state = drawShapes(x8y4.x, x8y4.y, x8y4.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x8y4.state !== '') {
+        writeText(x8y4.x, x8y4.y);
       }
     }
   }
 
-  //if 5th fret
+  //if 5th horizontal line
   if (y > x1y5.yClickableBottom && y < x1y5.yClickableTop) {
 
     //if left side clicked for numbers and mode is text
@@ -959,69 +964,69 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x1y5.state = drawShapes(x1y5.x, x1y5.y, x1y5.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x1y5.state !== '') {
+        writeText(x1y5.x, x1y5.y);
       }
     }
     else if (x > x2y5.xClickableLeft && x < x2y5.xClickableRight) {
       if (mode === 'draw') {
         x2y5.state = drawShapes(x2y5.x, x2y5.y, x2y5.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x2y5.state !== '') {
+        writeText(x2y5.x, x2y5.y);
       }
     }
     else if (x > x3y5.xClickableLeft && x < x3y5.xClickableRight) {
       if (mode === 'draw') {
         x3y5.state = drawShapes(x3y5.x, x3y5.y, x3y5.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x3y5.state !== '') {
+        writeText(x3y5.x, x3y5.y);
       }
     }
     else if (x > x4y5.xClickableLeft && x < x4y5.xClickableRight) {
       if (mode === 'draw') {
         x4y5.state = drawShapes(x4y5.x, x4y5.y, x4y5.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x4y5.state !== '') {
+        writeText(x4y5.x, x4y5.y);
       }
     }
     else if (x > x5y5.xClickableLeft && x < x5y5.xClickableRight) {
       if (mode === 'draw') {
         x5y5.state = drawShapes(x5y5.x, x5y5.y, x5y5.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x5y5.state !== '') {
+        writeText(x5y5.x, x5y5.y);
       }
     }
     else if (x > x6y5.xClickableLeft && x < x6y5.xClickableRight) {
       if (mode === 'draw') {
         x6y5.state = drawShapes(x6y5.x, x6y5.y, x6y5.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x6y5.state !== '') {
+        writeText(x6y5.x, x6y5.y);
       }
     }
     else if (x > x7y5.xClickableLeft && x < x7y5.xClickableRight) {
       if (mode === 'draw') {
         x7y5.state = drawShapes(x7y5.x, x7y5.y, x7y5.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x7y5.state !== '') {
+        writeText(x7y5.x, x7y5.y);
       }
     }
     else if (x > x8y5.xClickableLeft && x < x8y5.xClickableRight) {
       if (mode === 'draw') {
         x8y5.state = drawShapes(x8y5.x, x8y5.y, x8y5.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x8y5.state !== '') {
+        writeText(x8y5.x, x8y5.y);
       }
     }
   }
 
-  //if 6th fret
+  //if 6th horizontal line
   if (y > x1y6.yClickableBottom && y < x1y6.yClickableTop) {
 
     //if left side clicked for numbers and mode is text
@@ -1035,64 +1040,64 @@ function determineActionNeeded(x,y) {
       if (mode === 'draw') {
         x1y6.state = drawShapes(x1y6.x, x1y6.y, x1y6.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x1y6.state !== '') {
+        writeText(x1y6.x, x1y6.y);
       }
     }
     else if (x > x2y6.xClickableLeft && x < x2y6.xClickableRight) {
       if (mode === 'draw') {
         x2y6.state = drawShapes(x2y6.x, x2y6.y, x2y6.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x2y6.state !== '') {
+        writeText(x2y6.x, x2y6.y);
       }
     }
     else if (x > x3y6.xClickableLeft && x < x3y6.xClickableRight) {
       if (mode === 'draw') {
         x3y6.state = drawShapes(x3y6.x, x3y6.y, x3y6.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x3y6.state !== '') {
+        writeText(x3y6.x, x3y6.y);
       }
     }
     else if (x > x4y6.xClickableLeft && x < x4y6.xClickableRight) {
       if (mode === 'draw') {
         x4y6.state = drawShapes(x4y6.x, x4y6.y, x4y6.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x4y6.state !== '') {
+        writeText(x4y6.x, x4y6.y);
       }
     }
     else if (x > x5y6.xClickableLeft && x < x5y6.xClickableRight) {
       if (mode === 'draw') {
         x5y6.state = drawShapes(x5y6.x, x5y6.y, x5y6.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x5y6.state !== '') {
+        writeText(x5y6.x, x5y6.y);
       }
     }
     else if (x > x6y6.xClickableLeft && x < x6y6.xClickableRight) {
       if (mode === 'draw') {
         x6y6.state = drawShapes(x6y6.x, x6y6.y, x6y6.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x6y6.state !== '') {
+        writeText(x6y6.x, x6y6.y);
       }
     }
     else if (x > x7y6.xClickableLeft && x < x7y6.xClickableRight) {
       if (mode === 'draw') {
         x7y6.state = drawShapes(x7y6.x, x7y6.y, x7y6.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x7y6.state !== '') {
+        writeText(x7y6.x, x7y6.y);
       }
     }
     else if (x > x8y6.xClickableLeft && x < x8y6.xClickableRight) {
       if (mode === 'draw') {
         x8y6.state = drawShapes(x8y6.x, x8y6.y, x8y6.state);
       }
-      else if (mode === 'text' && x1y1.state !== '') {
-        writeText(x1y1.x, x1y1.y);
+      else if (mode === 'text' && x8y6.state !== '') {
+        writeText(x8y6.x, x8y6.y);
       }
     }
   }

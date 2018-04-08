@@ -13,7 +13,7 @@ let
   numberHorzontalLines = 5,
   numberVerticalLines = 6,
   lineWidth = 2,
-  topNut = true,
+  // topNut = true, //not needed because functions will draw nuts
   leftNut = false,
   nutWidth = lineWidth * 4,
   lineCap = 'round',
@@ -46,6 +46,7 @@ let
   singleDigitNoteTextSize = (distanceBetweenVerticalLines * circleSizePercentage) *2,
   doubleDigitNoteTextSize = singleDigitNoteTextSize * .7,
   fontForFrets = 'Times'
+  title = ''
   ;//end settings
 
 
@@ -215,6 +216,15 @@ $('#canvas').css({
   'border-width' : canvasBorderWidth
 });
 
+
+//download function
+function download() {
+  var dt = c.toDataURL('image/jpeg');
+  this.href = dt;
+};
+document.getElementById("downloadLink").addEventListener('click', download, false);
+
+
 let x = marginLeft;
 let y = marginTop;
 
@@ -258,26 +268,28 @@ for (i = 1; i <= numberHorzontalLines; i++) {
 }
 
 //draw nut (if needed)
-if (topNut) {
+function drawTopNut() {
+  //if (topNut) {
+    ctx.beginPath();
+    ctx.lineCap = nutLineCap;
+    ctx.lineWidth = nutWidth;
+    ctx.moveTo(marginLeft, marginTop);
+    ctx.lineTo(marginRight, marginTop);
+    ctx.stroke();
+    ctx.closePath();
+  //}
+}
+
+//draw nut on left side (if needed)
+if (leftNut) {
   ctx.beginPath();
   ctx.lineCap = nutLineCap;
   ctx.lineWidth = nutWidth;
   ctx.moveTo(marginLeft, marginTop);
-  ctx.lineTo(marginRight, marginTop);
+  ctx.lineTo(marginLeft, marginBottom);
   ctx.stroke();
   ctx.closePath();
 }
-
-// //draw nut on left side (if needed)
-// if (leftNut) {
-//   ctx.beginPath();
-//   ctx.lineCap = nutLineCap;
-//   ctx.lineWidth = nutWidth;
-//   ctx.moveTo(marginLeft, marginTop);
-//   ctx.lineTo(marginLeft, marginBottom);
-//   ctx.stroke();
-//   ctx.closePath();
-// }
 
 //set all states to blank for reset function
 //x0s
@@ -391,16 +403,25 @@ $('#chordTitle').keypress(function(e){
   }
 });
 
+$('#chordClearTitleButton').click(function(){
+  clearTitle();
+});
+
+$('#drawNut').click(function(){
+  drawTopNut();
+});
+
 
 //listen for clicks on save button
-$('#chordClearTitleButton').click(function(){
-  $('#chordTitle').val('');
-  clearTitle();
+$('#downloadLink').click(function(){
+  document.getElementById("downloadLink").download = title + '-chord.jpg';
 });
 
 
 //title functions
 function printTitle(t) {
+
+
   ctx.beginPath();
   ctx.fillStyle = 'white';
   ctx.rect(1, 1, canvasWidth-2, aboveTopNutYRectPosition);
@@ -416,6 +437,7 @@ function printTitle(t) {
   ctx.closePath();
 
   $('#chordTitle').val('');
+  
 }
 
 function clearTitle() {
@@ -424,6 +446,9 @@ function clearTitle() {
   ctx.rect(1, 1, canvasWidth-2, aboveTopNutYRectPosition);
   ctx.fill();
   ctx.closePath();
+  title = '';
+
+  $('#chordTitle').focus();
 }
 
 //draw shapes
@@ -540,25 +565,34 @@ function leftSideNumber(x,y, state) {
         let num = result;
 
         if (num !== null) {
-          ctx.beginPath();
-          ctx.fillStyle = 'white';
-          ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
-          ctx.fill();
-          ctx.closePath();
-
-          ctx.beginPath();
-          ctx.fillStyle = 'black';
-          ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(num, x, y);
-          ctx.closePath();
+          if (num.length <= 2) {
+            ctx.beginPath();
+            ctx.fillStyle = 'white';
+            ctx.rect(x - (openWhiteRectangleWidth/2), y - (openWhiteRectangleHeight/2), openWhiteRectangleWidth, openWhiteRectangleHeight);
+            ctx.fill();
+            ctx.closePath();
+  
+            ctx.beginPath();
+            ctx.fillStyle = 'black';
+            ctx.font = fontSizeForOpenShapes + 'px ' + fontForOpenShapes;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(num, x, y);
+            ctx.closePath();
+            }
+            else {
+              this.modal('hide');
+              bootbox.alert({
+                size: 'small',
+                backdrop: true,
+                onEscape: true,
+                message: 'Number of characters must be 2 or less.',
+              });
+            }
         }
         return 'filled';
       },
-
     });
-
   }
 
   if (state !== '') {
@@ -649,11 +683,9 @@ function determineActionNeeded(x,y) {
   //if 1st horizontal line
   if (y > x1y1.yClickableBottom && y < x1y1.yClickableTop) {
 
-    //if left side clicked for numbers and mode is text
+    //if left side clicked for numbers, any mode
     if (x < x0y1.xClickableRight) {
-      if (mode === 'text') {
-        x0y1.state = leftSideNumber(x0y1.x, x0y1.y, x0y1.state);
-      }
+      x0y1.state = leftSideNumber(x0y1.x, x0y1.y, x0y1.state);
     }
     //if spot on guitar is clicked
     else if (x > x1y1.xClickableLeft && x < x1y1.xClickableRight) {
@@ -725,11 +757,9 @@ function determineActionNeeded(x,y) {
   //if 2nd horizontal line
   if (y > x1y2.yClickableBottom && y < x1y2.yClickableTop) {
 
-    //if left side clicked for numbers and mode is text
+    //if left side clicked for numbers, any mode
     if (x < x0y2.xClickableRight) {
-      if (mode === 'text') {
-        x0y2.state = leftSideNumber(x0y2.x, x0y2.y, x0y2.state);
-      }
+      x0y2.state = leftSideNumber(x0y2.x, x0y2.y, x0y2.state);
     }
     //if spot on guitar is clicked
     else if (x > x1y2.xClickableLeft && x < x1y2.xClickableRight) {
@@ -801,11 +831,9 @@ function determineActionNeeded(x,y) {
   //if 3rd horizontal line
   if (y > x1y3.yClickableBottom && y < x1y3.yClickableTop) {
 
-    //if left side clicked for numbers and mode is text
+    //if left side clicked for numbers, any mode
     if (x < x0y3.xClickableRight) {
-      if (mode === 'text') {
-        x0y3.state = leftSideNumber(x0y3.x, x0y3.y, x0y3.state);
-      }
+      x0y3.state = leftSideNumber(x0y3.x, x0y3.y, x0y3.state);
     }
     //if spot on guitar is clicked
     else if (x > x1y3.xClickableLeft && x < x1y3.xClickableRight) {
@@ -877,11 +905,9 @@ function determineActionNeeded(x,y) {
   //if 4th horizontal line
   if (y > x1y4.yClickableBottom && y < x1y4.yClickableTop) {
 
-    //if left side clicked for numbers and mode is text
+    //if left side clicked for numbers, any mode
     if (x < x0y4.xClickableRight) {
-      if (mode === 'text') {
-        x0y4.state = leftSideNumber(x0y4.x, x0y4.y, x0y4.state);
-      }
+      x0y4.state = leftSideNumber(x0y4.x, x0y4.y, x0y4.state);
     }
     //if spot on guitar is clicked
     else if (x > x1y4.xClickableLeft && x < x1y4.xClickableRight) {
@@ -953,11 +979,9 @@ function determineActionNeeded(x,y) {
   //if 5th horizontal line
   if (y > x1y5.yClickableBottom && y < x1y5.yClickableTop) {
 
-    //if left side clicked for numbers and mode is text
+    //if left side clicked for numbers, any mode
     if (x < x0y5.xClickableRight) {
-      if (mode === 'text') {
-        x0y5.state = leftSideNumber(x0y5.x, x0y5.y, x0y5.state);
-      }
+      x0y5.state = leftSideNumber(x0y5.x, x0y5.y, x0y5.state);
     }
     //if spot on guitar is clicked
     else if (x > x1y5.xClickableLeft && x < x1y5.xClickableRight) {
@@ -1029,11 +1053,9 @@ function determineActionNeeded(x,y) {
   //if 6th horizontal line
   if (y > x1y6.yClickableBottom && y < x1y6.yClickableTop) {
 
-    //if left side clicked for numbers and mode is text
+    //if left side clicked for numbers, any mode
     if (x < x0y6.xClickableRight) {
-      if (mode === 'text') {
-        x0y6.state = leftSideNumber(x0y6.x, x0y6.y, x0y6.state);
-      }
+      x0y6.state = leftSideNumber(x0y6.x, x0y6.y, x0y6.state);
     }
     //if spot on guitar is clicked
     else if (x > x1y6.xClickableLeft && x < x1y6.xClickableRight) {

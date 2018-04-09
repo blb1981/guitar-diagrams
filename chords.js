@@ -175,45 +175,46 @@ let x8y4 = new Note(markerX[8], markerY[4], '');
 let x8y5 = new Note(markerX[8], markerY[5], '');
 let x8y6 = new Note(markerX[8], markerY[6], '');
 
+jQuery(document).ready(function($) {
 
-//set HTML body styles
-$('body').css({
-  'background-color': bodyBackgroundColor
-});
+  //set HTML body styles
+  $('body').css({
+    'background-color': bodyBackgroundColor
+  });
 
-//reset canvas button
-$('#reset').click(function(){
-  location.reload();
-});
+  //reset canvas button
+  $('#reset').click(function(){
+    location.reload();
+  });
 
-//button group to switch modes
-$('#drawButton').click(function(){
-  $('#drawLI').toggleClass('active');
-  $('#textLI').toggleClass('active');
-  mode = 'draw';
-});
+  //button group to switch modes
+  $('#drawButton').click(function(){
+    $('#drawLI').toggleClass('active');
+    $('#textLI').toggleClass('active');
+    mode = 'draw';
+  });
 
-$('#textButton').click(function(){
-  $('#drawLI').toggleClass('active');
-  $('#textLI').toggleClass('active');
-  mode = 'text';
-});
-
-
+  $('#textButton').click(function(){
+    $('#drawLI').toggleClass('active');
+    $('#textLI').toggleClass('active');
+    mode = 'text';
+  });
 
 
-//set canvas HTML attributes
-$('#canvas').attr({
-  'width': canvasWidth,
-  'height': canvasHeight
-});
+  //set canvas HTML attributes
+  $('#canvas').attr({
+    'width': canvasWidth,
+    'height': canvasHeight
+  });
 
-//set canvas styles
-$('#canvas').css({
-  'background-color': canvasBackground,
-  'border-color' : canvasBorderColor,
-  'border-style' : 'solid',
-  'border-width' : canvasBorderWidth
+  //set canvas styles
+  $('#canvas').css({
+    'background-color': canvasBackground,
+    'border-color' : canvasBorderColor,
+    'border-style' : 'solid',
+    'border-width' : canvasBorderWidth
+  });
+
 });
 
 
@@ -374,49 +375,51 @@ function getMousePos(canvas, e) {
   };
 }
 
-// //displays mouse position
-// $('#canvas').mousemove(function(e){
-//   var mousePos = getMousePos(c, e);
-//   x = mousePos.x;
-//   y = mousePos.y;
-//   $('#scroll').html('mousemove: ' + x + ',' + y);
-// });
+jQuery(document).ready(function($) {
 
-//determines what to do when canvas is clicked
-$('#canvas').mousedown(function(e){
-  var mousePos = getMousePos(c, e);
-  x = mousePos.x;
-  y = mousePos.y;
-  determineActionNeeded(x,y);
-});
+  // //displays mouse position
+  // $('#canvas').mousemove(function(e){
+  //   var mousePos = getMousePos(c, e);
+  //   x = mousePos.x;
+  //   y = mousePos.y;
+  //   $('#scroll').html('mousemove: ' + x + ',' + y);
+  // });
 
-$('#chordTitleButton').click(function(){
-  title = $('#chordTitle').val();
-  printTitle(title);
-});
+  //determines what to do when canvas is clicked
+  $('#canvas').mousedown(function(e){
+    var mousePos = getMousePos(c, e);
+    x = mousePos.x;
+    y = mousePos.y;
+    determineActionNeeded(x,y);
+  });
 
-$('#chordTitle').keypress(function(e){
-  if (e.which == 13) {
+  $('#chordTitleButton').click(function(){
     title = $('#chordTitle').val();
     printTitle(title);
-    return false;
-  }
+  });
+
+  $('#chordTitle').keypress(function(e){
+    if (e.which == 13) {
+      title = $('#chordTitle').val();
+      printTitle(title);
+      return false;
+    }
+  });
+
+  $('#chordClearTitleButton').click(function(){
+    clearTitle();
+  });
+
+  $('#drawNut').click(function(){
+    drawTopNut();
+  });
+
+
+  //listen for clicks on save button
+  $('#downloadLink').click(function(){
+    document.getElementById("downloadLink").download = title + '-chord.jpg';
+  });
 });
-
-$('#chordClearTitleButton').click(function(){
-  clearTitle();
-});
-
-$('#drawNut').click(function(){
-  drawTopNut();
-});
-
-
-//listen for clicks on save button
-$('#downloadLink').click(function(){
-  document.getElementById("downloadLink").download = title + '-chord.jpg';
-});
-
 
 //title functions
 function printTitle(t) {
@@ -436,7 +439,7 @@ function printTitle(t) {
   ctx.fillText(t, canvasWidth/2, aboveTopNutYRectPosition/2, canvasWidth);
   ctx.closePath();
 
-  $('#chordTitle').val('');
+  
   
 }
 
@@ -448,7 +451,7 @@ function clearTitle() {
   ctx.closePath();
   title = '';
 
-  $('#chordTitle').focus();
+  
 }
 
 //draw shapes

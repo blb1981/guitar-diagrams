@@ -9,20 +9,21 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
-      .container {
-        width: 970px !important;
+      body {
+        margin-top: 60px;
       }
     </style>
 
   </head>
   <body>
   <div class="container">
-    <h2>Guitar Chord Diagram Generator</h2>
-    <p><strong>Warning:</strong> DO NOT RESIZE your browser in the middle of creating a diagram.</p>
+    <h1>Guitar Chord Diagram Generator</h1>
     <div class="row">
       <div class="col-xs-6">
+        <p>Click on the diagram to start drawing dots where you want them.</p>
         <canvas id="canvas"></canvas>
-        <h2 id="scroll"></h2>
+        <br><br><br><b></b>
+        <p><a href="https://www.guitarlearningtools.com">&#8592;--Return to GuitarLearningTools.com Home Page</a></p>
       </div>
 
       <div class="col-xs-6">
@@ -37,11 +38,6 @@
           <button class="btn btn-primary" type="button" id="chordClearTitleButton" title="Clear title">Clear Title</button>
         </div>
         <hr>
-        <h4>Draw Nut</h4>
-        <button class="btn btn-primary" type="button" id="drawNut" title="Draw Nut">Draw Nut</button>
-        <button class="btn btn-primary" id="reset">Reset Diagram</button>
-
-        <hr>
         <h4>Current Mode</h4>
         <ul class="nav nav-pills">
           <li id="drawLI" class="active"><a href="#" id="drawButton">Draw</a></li>
@@ -49,7 +45,11 @@
         </ul>
         <p>Draw mode allows you to click and draw dots<br>Text mode allows you to write on the diagram.</p>
         <hr>
+        <h4>Draw Nut</h4>
+        <button class="btn btn-primary" type="button" id="drawNut" title="Draw Nut">Draw Nut</button>
+        <hr>
         <a class="btn btn-success" id="downloadLink" download="YourFileName.jpg">Download Diagram</a>
+        <button class="btn btn-primary" id="reset">Reset Diagram</button>
       </div>
     </div>
   </div>

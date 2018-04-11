@@ -1,3 +1,4 @@
+
 //define canvas
 const c = document.getElementById("canvas");
 const ctx = c.getContext("2d");
@@ -46,7 +47,10 @@ let
   singleDigitNoteTextSize = (distanceBetweenVerticalLines * circleSizePercentage) *2,
   doubleDigitNoteTextSize = singleDigitNoteTextSize * .7,
   fontForFrets = 'Times'
-  title = ''
+  title = '',
+  brand = 'GuitarLearningTools.com',
+  fontForBrand = 'Verdana',
+  fontSizeForBrand = 16
   ;//end settings
 
 
@@ -175,7 +179,7 @@ let x8y4 = new Note(markerX[8], markerY[4], '');
 let x8y5 = new Note(markerX[8], markerY[5], '');
 let x8y6 = new Note(markerX[8], markerY[6], '');
 
-jQuery(document).ready(function($) {
+
 
   //set HTML body styles
   $('body').css({
@@ -215,7 +219,7 @@ jQuery(document).ready(function($) {
     'border-width' : canvasBorderWidth
   });
 
-});
+
 
 
 //download function
@@ -267,6 +271,17 @@ for (i = 1; i <= numberHorzontalLines; i++) {
   ctx.closePath();
   y += distanceBetweenHorizontalLines
 }
+
+//write branding
+ctx.beginPath();
+ctx.fillStyle = 'grey';
+ctx.font = fontSizeForBrand + 'px ' + fontForBrand;
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText(brand, canvasWidth/2, canvasHeight-15, canvasWidth);
+ctx.closePath();
+
+
 
 //draw nut (if needed)
 function drawTopNut() {
@@ -375,9 +390,8 @@ function getMousePos(canvas, e) {
   };
 }
 
-jQuery(document).ready(function($) {
 
-  // //displays mouse position
+  //displays mouse position
   // $('#canvas').mousemove(function(e){
   //   var mousePos = getMousePos(c, e);
   //   x = mousePos.x;
@@ -419,7 +433,6 @@ jQuery(document).ready(function($) {
   $('#downloadLink').click(function(){
     document.getElementById("downloadLink").download = title + '-chord.jpg';
   });
-});
 
 //title functions
 function printTitle(t) {
@@ -439,7 +452,7 @@ function printTitle(t) {
   ctx.fillText(t, canvasWidth/2, aboveTopNutYRectPosition/2, canvasWidth);
   ctx.closePath();
 
-  
+  $('#chordTitle').val('').blur();
   
 }
 
@@ -451,7 +464,7 @@ function clearTitle() {
   ctx.closePath();
   title = '';
 
-  
+  $('#chordTitle').val('').focus();
 }
 
 //draw shapes

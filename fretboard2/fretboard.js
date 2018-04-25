@@ -5,16 +5,16 @@ const ctx = c.getContext("2d");
 
 //settings
 let
-  canvasWidth = 800,
+  canvasWidth = 780,
   canvasHeight = 225,
   marginLeft = canvasWidth * .05,
-  marginRight = canvasWidth * .95,
-  marginTop = canvasHeight * .30,
-  marginBottom = canvasHeight * .8,
+  marginRight = canvasWidth * .97,
+  marginTop = canvasHeight * .25,
+  marginBottom = canvasHeight * .83,
   numberHorzontalLines = 6,
   numberVerticalLines = 19,
   lineWidth = 2,
-  // topNut = true, //not needed
+  topNut = false, 
   leftNut = true,
   nutWidth = lineWidth * 4,
   lineCap = 'round',
@@ -24,7 +24,7 @@ let
   canvasBorderColor = 'black',
   canvasBorderWidth = '0px',
   mode = 'draw',
-  circleSizePercentage = .2,
+  circleSizePercentage = .3,
   guitarWidth = marginRight - marginLeft,
   guitarHeight = marginBottom - marginTop,
   distanceBetweenVerticalLines = guitarWidth/(numberVerticalLines - 1),
@@ -32,8 +32,8 @@ let
   markerX = new Array(),
   markerY = new Array(),
   rect = canvas.getBoundingClientRect()
-  whiteRectangleWidth = distanceBetweenVerticalLines *.9,
-  whiteRectangleHeight = distanceBetweenHorizontalLines * .65,
+  whiteRectangleWidth = distanceBetweenVerticalLines *.75,
+  whiteRectangleHeight = distanceBetweenHorizontalLines * .95,
   openWhiteRectangleWidth = distanceBetweenVerticalLines * .7,
   openWhiteRectangleHeight = distanceBetweenHorizontalLines * .6,
   aboveTopNutYRectPosition = marginTop * .65,
@@ -41,9 +41,9 @@ let
   blackRectangleHeight = distanceBetweenHorizontalLines * .6,
   fontSizeForOpenShapes = '27', //in pixels
   fontForOpenShapes = 'Arial'
-  fontSizeForTitle = aboveTopNutYRectPosition * .8, //in pixels
-  fontForTitle = 'Times',
-  leftSideTextMarker = marginLeft/2, //adjust as needed for text on left side
+  fontSizeForTitle = aboveTopNutYRectPosition * .7, //in pixels
+  fontForTitle = 'Arial',
+  leftSideTextMarker = marginLeft/3, //adjust as needed for text on left side
   singleDigitNoteTextSize = (distanceBetweenVerticalLines * circleSizePercentage) *2,
   doubleDigitNoteTextSize = singleDigitNoteTextSize * .7,
   fontForFrets = 'Times'
@@ -71,28 +71,28 @@ function Note(x, y, state) {
 //markerX[0] will be used for left side text
 for (i = 0; i <= numberVerticalLines; i++) {
   if (i === 0) {
-    markerX[i] = leftSideTextMarker;
+    markerX[i] = marginLeft*.5;
   }
   else if (i === 1) {
-    markerX[i] = marginLeft;
+    markerX[i] = marginLeft + (distanceBetweenVerticalLines/2);
   }
   else {
-    markerX[i] = marginLeft + distanceBetweenVerticalLines * (i-1);
+    markerX[i] = marginLeft + (distanceBetweenVerticalLines/2) + (distanceBetweenVerticalLines * (i-1));
   }
 }
 
 //setMarkerY array positions
 //open string position is markerY[0]
 //first markerY[1] is halfway between horizontal line 1 and 2
-for (i = 0; i <= numberHorzontalLines -1; i++) {
-  if (i === 0) {
+for (i = 1; i <= numberHorzontalLines; i++) {
+  if (i === 1) {
     markerY[i] = marginTop;
   }
-  else if (i === 1) {
-    markerY[i] = marginTop + (distanceBetweenHorizontalLines/2);
-  }
+  //else if (i === 1) {
+  //  markerY[i] = marginTop + (distanceBetweenHorizontalLines/2);
+  //}
   else {
-    markerY[i] = marginTop + (distanceBetweenHorizontalLines/2) + (distanceBetweenHorizontalLines * (i-1));
+    markerY[i] = marginTop + (distanceBetweenHorizontalLines * (i-1));
   }
 }
 
@@ -284,17 +284,15 @@ ctx.closePath();
 
 
 //draw nut (if needed)
-function drawTopNut() {
-  //if (topNut) {
-    ctx.beginPath();
-    ctx.lineCap = nutLineCap;
-    ctx.lineWidth = nutWidth;
-    ctx.moveTo(marginLeft, marginTop);
-    ctx.lineTo(marginRight, marginTop);
-    ctx.stroke();
-    ctx.closePath();
-  //}
-}
+if (topNut) {
+	ctx.beginPath();
+	ctx.lineCap = nutLineCap;
+	ctx.lineWidth = nutWidth;
+	ctx.moveTo(marginLeft, marginTop);
+	ctx.lineTo(marginRight, marginTop);
+	ctx.stroke();
+	ctx.closePath();
+  }
 
 //draw nut on left side (if needed)
 if (leftNut) {
@@ -392,12 +390,12 @@ function getMousePos(canvas, e) {
 
 
   //displays mouse position
-  // $('#canvas').mousemove(function(e){
-  //   var mousePos = getMousePos(c, e);
-  //   x = mousePos.x;
-  //   y = mousePos.y;
-  //   $('#scroll').html('mousemove: ' + x + ',' + y);
-  // });
+   $('#canvas').mousemove(function(e){
+     var mousePos = getMousePos(c, e);
+     x = mousePos.x;
+     y = mousePos.y;
+     $('#scroll').html('mousemove: ' + x + ',' + y);
+   });
 
   //determines what to do when canvas is clicked
   $('#canvas').mousedown(function(e){
@@ -447,9 +445,10 @@ function printTitle(t) {
   ctx.beginPath();
   ctx.fillStyle = 'black';
   ctx.font = fontSizeForTitle + 'px ' + fontForTitle;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(t, canvasWidth/2, aboveTopNutYRectPosition/2, canvasWidth);
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'left';
+  //ctx.fillText(t, canvasWidth/2, aboveTopNutYRectPosition/2, canvasWidth);
+  ctx.fillText(t, canvasWidth*.05, aboveTopNutYRectPosition/2, canvasWidth);
   ctx.closePath();
 
   $('#chordTitle').val('').blur();
@@ -513,8 +512,8 @@ function drawShapes(x,y,state) {
     ctx.beginPath();
     ctx.lineCap = lineCap;
     ctx.lineWidth = lineWidth;
-    ctx.moveTo(x, (y + (distanceBetweenHorizontalLines/2)));
-    ctx.lineTo(x, (y - (distanceBetweenHorizontalLines/2)));
+    ctx.moveTo(x + (distanceBetweenVerticalLines/2), y);
+    ctx.lineTo(x - (distanceBetweenVerticalLines/2), y);
     ctx.stroke();
     ctx.closePath();
     return '';

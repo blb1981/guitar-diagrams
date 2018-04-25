@@ -32,7 +32,7 @@ let
   markerX = new Array(),
   markerY = new Array(),
   rect = canvas.getBoundingClientRect()
-  whiteRectangleWidth = distanceBetweenVerticalLines *.75,
+  whiteRectangleWidth = distanceBetweenVerticalLines *.7,
   whiteRectangleHeight = distanceBetweenHorizontalLines * .95,
   openWhiteRectangleWidth = distanceBetweenVerticalLines * .7,
   openWhiteRectangleHeight = distanceBetweenHorizontalLines * .6,
@@ -161,7 +161,7 @@ let x6y4 = new Note(markerX[6], markerY[4], '');
 let x6y5 = new Note(markerX[6], markerY[5], '');
 let x6y6 = new Note(markerX[6], markerY[6], '');
 
-//x7s for 7 string guitar
+//x7s 
 let x7y0 = new Note(markerX[7], markerY[0], '');
 let x7y1 = new Note(markerX[7], markerY[1], '');
 let x7y2 = new Note(markerX[7], markerY[2], '');
@@ -170,7 +170,7 @@ let x7y4 = new Note(markerX[7], markerY[4], '');
 let x7y5 = new Note(markerX[7], markerY[5], '');
 let x7y6 = new Note(markerX[7], markerY[6], '');
 
-//x8s for 8 string guitar
+//x8s
 let x8y0 = new Note(markerX[8], markerY[0], '');
 let x8y1 = new Note(markerX[8], markerY[1], '');
 let x8y2 = new Note(markerX[8], markerY[2], '');
@@ -179,6 +179,95 @@ let x8y4 = new Note(markerX[8], markerY[4], '');
 let x8y5 = new Note(markerX[8], markerY[5], '');
 let x8y6 = new Note(markerX[8], markerY[6], '');
 
+//x9s
+let x9y0 = new Note(markerX[9], markerY[0], '');
+let x9y1 = new Note(markerX[9], markerY[1], '');
+let x9y2 = new Note(markerX[9], markerY[2], '');
+let x9y3 = new Note(markerX[9], markerY[3], '');
+let x9y4 = new Note(markerX[9], markerY[4], '');
+let x9y5 = new Note(markerX[9], markerY[5], '');
+let x9y6 = new Note(markerX[9], markerY[6], '');
+
+//x10s
+let x10y0 = new Note(markerX[10], markerY[0], '');
+let x10y1 = new Note(markerX[10], markerY[1], '');
+let x10y2 = new Note(markerX[10], markerY[2], '');
+let x10y3 = new Note(markerX[10], markerY[3], '');
+let x10y4 = new Note(markerX[10], markerY[4], '');
+let x10y5 = new Note(markerX[10], markerY[5], '');
+let x10y6 = new Note(markerX[10], markerY[6], '');
+
+//x11s
+let x11y0 = new Note(markerX[11], markerY[0], '');
+let x11y1 = new Note(markerX[11], markerY[1], '');
+let x11y2 = new Note(markerX[11], markerY[2], '');
+let x11y3 = new Note(markerX[11], markerY[3], '');
+let x11y4 = new Note(markerX[11], markerY[4], '');
+let x11y5 = new Note(markerX[11], markerY[5], '');
+let x11y6 = new Note(markerX[11], markerY[6], '');
+
+//x12s
+let x12y0 = new Note(markerX[12], markerY[0], '');
+let x12y1 = new Note(markerX[12], markerY[1], '');
+let x12y2 = new Note(markerX[12], markerY[2], '');
+let x12y3 = new Note(markerX[12], markerY[3], '');
+let x12y4 = new Note(markerX[12], markerY[4], '');
+let x12y5 = new Note(markerX[12], markerY[5], '');
+let x12y6 = new Note(markerX[12], markerY[6], '');
+
+//x13s
+let x13y0 = new Note(markerX[13], markerY[0], '');
+let x13y1 = new Note(markerX[13], markerY[1], '');
+let x13y2 = new Note(markerX[13], markerY[2], '');
+let x13y3 = new Note(markerX[13], markerY[3], '');
+let x13y4 = new Note(markerX[13], markerY[4], '');
+let x13y5 = new Note(markerX[13], markerY[5], '');
+let x13y6 = new Note(markerX[13], markerY[6], '');
+
+//x14s
+let x14y0 = new Note(markerX[14], markerY[0], '');
+let x14y1 = new Note(markerX[14], markerY[1], '');
+let x14y2 = new Note(markerX[14], markerY[2], '');
+let x14y3 = new Note(markerX[14], markerY[3], '');
+let x14y4 = new Note(markerX[14], markerY[4], '');
+let x14y5 = new Note(markerX[14], markerY[5], '');
+let x14y6 = new Note(markerX[14], markerY[6], '');
+
+//x15s
+let x15y0 = new Note(markerX[15], markerY[0], '');
+let x15y1 = new Note(markerX[15], markerY[1], '');
+let x15y2 = new Note(markerX[15], markerY[2], '');
+let x15y3 = new Note(markerX[15], markerY[3], '');
+let x15y4 = new Note(markerX[15], markerY[4], '');
+let x15y5 = new Note(markerX[15], markerY[5], '');
+let x15y6 = new Note(markerX[15], markerY[6], '');
+
+//x16s
+let x16y0 = new Note(markerX[16], markerY[0], '');
+let x16y1 = new Note(markerX[16], markerY[1], '');
+let x16y2 = new Note(markerX[16], markerY[2], '');
+let x16y3 = new Note(markerX[16], markerY[3], '');
+let x16y4 = new Note(markerX[16], markerY[4], '');
+let x16y5 = new Note(markerX[16], markerY[5], '');
+let x16y6 = new Note(markerX[16], markerY[6], '');
+
+//x17s
+let x17y0 = new Note(markerX[17], markerY[0], '');
+let x17y1 = new Note(markerX[17], markerY[1], '');
+let x17y2 = new Note(markerX[17], markerY[2], '');
+let x17y3 = new Note(markerX[17], markerY[3], '');
+let x17y4 = new Note(markerX[17], markerY[4], '');
+let x17y5 = new Note(markerX[17], markerY[5], '');
+let x17y6 = new Note(markerX[17], markerY[6], '');
+
+//x18s
+let x18y0 = new Note(markerX[18], markerY[0], '');
+let x18y1 = new Note(markerX[18], markerY[1], '');
+let x18y2 = new Note(markerX[18], markerY[2], '');
+let x18y3 = new Note(markerX[18], markerY[3], '');
+let x18y4 = new Note(markerX[18], markerY[4], '');
+let x18y5 = new Note(markerX[18], markerY[5], '');
+let x18y6 = new Note(markerX[18], markerY[6], '');
 
 
   //set HTML body styles
@@ -378,6 +467,96 @@ x8y4.state = '';
 x8y5.state = '';
 x8y6.state = '';
 
+//x9s
+x9y1.state = '';
+x9y2.state = '';
+x9y3.state = '';
+x9y4.state = '';
+x9y5.state = '';
+x11y6.state = '';
+
+
+//x10s
+x10y1.state = '';
+x10y2.state = '';
+x10y3.state = '';
+x10y4.state = '';
+x10y5.state = '';
+x10y6.state = '';
+
+
+//x11s
+x11y1.state = '';
+x11y2.state = '';
+x11y3.state = '';
+x11y4.state = '';
+x11y5.state = '';
+x11y6.state = '';
+
+
+//x12s
+x12y1.state = '';
+x12y2.state = '';
+x12y3.state = '';
+x12y4.state = '';
+x12y5.state = '';
+x12y6.state = '';
+
+
+//x13s
+x13y1.state = '';
+x13y2.state = '';
+x13y3.state = '';
+x13y4.state = '';
+x13y5.state = '';
+x13y6.state = '';
+
+
+//x14s
+x14y1.state = '';
+x14y2.state = '';
+x14y3.state = '';
+x14y4.state = '';
+x14y5.state = '';
+x14y6.state = '';
+
+
+//x15s
+x15y1.state = '';
+x15y2.state = '';
+x15y3.state = '';
+x15y4.state = '';
+x15y5.state = '';
+x15y6.state = '';
+
+
+//x16s
+x16y1.state = '';
+x16y2.state = '';
+x16y3.state = '';
+x16y4.state = '';
+x16y5.state = '';
+x16y6.state = '';
+
+
+//x17s
+x17y1.state = '';
+x17y2.state = '';
+x17y3.state = '';
+x17y4.state = '';
+x17y5.state = '';
+x17y6.state = '';
+
+
+//x18s
+x18y1.state = '';
+x18y2.state = '';
+x18y3.state = '';
+x18y4.state = '';
+x18y5.state = '';
+x18y6.state = '';
+
+
 
 //returns mouse position
 function getMousePos(canvas, e) {
@@ -485,27 +664,27 @@ function drawShapes(x,y,state) {
 
   //rectangle functionality commented out intentionally
   /************************************************************/
-  // if (state === "circle") {
-  //   ctx.beginPath();
-  //   ctx.fillStyle = "white";
-  //   ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
-  //   ctx.fill();
-  //   ctx.closePath();
-  //
-  //   ctx.beginPath();
-  //   ctx.fillStyle = "black";
-  //   ctx.rect(x - (blackRectangleWidth/2), y -(blackRectangleHeight/2), blackRectangleWidth, blackRectangleHeight);
-  //   // ctx.arc(x,y,(distanceBetweenVerticalLines * circleSizePercentage),0,2*Math.PI);
-  //   ctx.fill();
-  //   ctx.closePath();
-  //   return "square";
-  // }
-  /************************************************************/
-
   if (state === "circle") {
     ctx.beginPath();
     ctx.fillStyle = "white";
     ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight);
+    ctx.fill();
+    ctx.closePath();
+  
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.rect(x - (whiteRectangleWidth/2) + 1, y -(whiteRectangleHeight/2) + 1, whiteRectangleWidth-2, whiteRectangleHeight-1);
+    // ctx.arc(x,y,(distanceBetweenVerticalLines * circleSizePercentage),0,2*Math.PI);
+    ctx.fill();
+    ctx.closePath();
+    return "square";
+  }
+  /************************************************************/
+
+  if (state === "square") {
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.rect(x - (whiteRectangleWidth/2), y -(whiteRectangleHeight/2), whiteRectangleWidth, whiteRectangleHeight+1);
     ctx.fill();
     ctx.closePath();
 

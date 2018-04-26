@@ -1,10 +1,10 @@
 
 //define canvas
-const c = document.getElementById("canvas");
-const ctx = c.getContext("2d");
+var c = document.getElementById("canvas");
+var ctx = c.getContext("2d");
 
 //settings
-let
+var
   canvasWidth = 780,
   canvasHeight = 250,
   marginLeft = canvasWidth * .05,
@@ -101,175 +101,175 @@ for (i = 1; i <= numberHorzontalLines; i++) {
 //create objects for notes
 //supports 8 strings, up to 6 horizontal lines
 //x0s
-let x0y0 = new Note(markerX[0], markerY[0], '');
-let x0y1 = new Note(markerX[0], markerY[1], '');
-let x0y2 = new Note(markerX[0], markerY[2], '');
-let x0y3 = new Note(markerX[0], markerY[3], '');
-let x0y4 = new Note(markerX[0], markerY[4], '');
-let x0y5 = new Note(markerX[0], markerY[5], '');
-let x0y6 = new Note(markerX[0], markerY[6], '');
+var x0y0 = new Note(markerX[0], markerY[0], '');
+var x0y1 = new Note(markerX[0], markerY[1], '');
+var x0y2 = new Note(markerX[0], markerY[2], '');
+var x0y3 = new Note(markerX[0], markerY[3], '');
+var x0y4 = new Note(markerX[0], markerY[4], '');
+var x0y5 = new Note(markerX[0], markerY[5], '');
+var x0y6 = new Note(markerX[0], markerY[6], '');
 
 //x1s
-let x1y0 = new Note(markerX[1], markerY[0], '');
-let x1y1 = new Note(markerX[1], markerY[1], '');
-let x1y2 = new Note(markerX[1], markerY[2], '');
-let x1y3 = new Note(markerX[1], markerY[3], '');
-let x1y4 = new Note(markerX[1], markerY[4], '');
-let x1y5 = new Note(markerX[1], markerY[5], '');
-let x1y6 = new Note(markerX[1], markerY[6], '');
+var x1y0 = new Note(markerX[1], markerY[0], '');
+var x1y1 = new Note(markerX[1], markerY[1], '');
+var x1y2 = new Note(markerX[1], markerY[2], '');
+var x1y3 = new Note(markerX[1], markerY[3], '');
+var x1y4 = new Note(markerX[1], markerY[4], '');
+var x1y5 = new Note(markerX[1], markerY[5], '');
+var x1y6 = new Note(markerX[1], markerY[6], '');
 
 //x2s
-let x2y0 = new Note(markerX[2], markerY[0], '');
-let x2y1 = new Note(markerX[2], markerY[1], '');
-let x2y2 = new Note(markerX[2], markerY[2], '');
-let x2y3 = new Note(markerX[2], markerY[3], '');
-let x2y4 = new Note(markerX[2], markerY[4], '');
-let x2y5 = new Note(markerX[2], markerY[5], '');
-let x2y6 = new Note(markerX[2], markerY[6], '');
+var x2y0 = new Note(markerX[2], markerY[0], '');
+var x2y1 = new Note(markerX[2], markerY[1], '');
+var x2y2 = new Note(markerX[2], markerY[2], '');
+var x2y3 = new Note(markerX[2], markerY[3], '');
+var x2y4 = new Note(markerX[2], markerY[4], '');
+var x2y5 = new Note(markerX[2], markerY[5], '');
+var x2y6 = new Note(markerX[2], markerY[6], '');
 
 //x3s
-let x3y0 = new Note(markerX[3], markerY[0], '');
-let x3y1 = new Note(markerX[3], markerY[1], '');
-let x3y2 = new Note(markerX[3], markerY[2], '');
-let x3y3 = new Note(markerX[3], markerY[3], '');
-let x3y4 = new Note(markerX[3], markerY[4], '');
-let x3y5 = new Note(markerX[3], markerY[5], '');
-let x3y6 = new Note(markerX[3], markerY[6], '');
+var x3y0 = new Note(markerX[3], markerY[0], '');
+var x3y1 = new Note(markerX[3], markerY[1], '');
+var x3y2 = new Note(markerX[3], markerY[2], '');
+var x3y3 = new Note(markerX[3], markerY[3], '');
+var x3y4 = new Note(markerX[3], markerY[4], '');
+var x3y5 = new Note(markerX[3], markerY[5], '');
+var x3y6 = new Note(markerX[3], markerY[6], '');
 
 //x4s
-let x4y0 = new Note(markerX[4], markerY[0], '');
-let x4y1 = new Note(markerX[4], markerY[1], '');
-let x4y2 = new Note(markerX[4], markerY[2], '');
-let x4y3 = new Note(markerX[4], markerY[3], '');
-let x4y4 = new Note(markerX[4], markerY[4], '');
-let x4y5 = new Note(markerX[4], markerY[5], '');
-let x4y6 = new Note(markerX[4], markerY[6], '');
+var x4y0 = new Note(markerX[4], markerY[0], '');
+var x4y1 = new Note(markerX[4], markerY[1], '');
+var x4y2 = new Note(markerX[4], markerY[2], '');
+var x4y3 = new Note(markerX[4], markerY[3], '');
+var x4y4 = new Note(markerX[4], markerY[4], '');
+var x4y5 = new Note(markerX[4], markerY[5], '');
+var x4y6 = new Note(markerX[4], markerY[6], '');
 
 //x5s
-let x5y0 = new Note(markerX[5], markerY[0], '');
-let x5y1 = new Note(markerX[5], markerY[1], '');
-let x5y2 = new Note(markerX[5], markerY[2], '');
-let x5y3 = new Note(markerX[5], markerY[3], '');
-let x5y4 = new Note(markerX[5], markerY[4], '');
-let x5y5 = new Note(markerX[5], markerY[5], '');
-let x5y6 = new Note(markerX[5], markerY[6], '');
+var x5y0 = new Note(markerX[5], markerY[0], '');
+var x5y1 = new Note(markerX[5], markerY[1], '');
+var x5y2 = new Note(markerX[5], markerY[2], '');
+var x5y3 = new Note(markerX[5], markerY[3], '');
+var x5y4 = new Note(markerX[5], markerY[4], '');
+var x5y5 = new Note(markerX[5], markerY[5], '');
+var x5y6 = new Note(markerX[5], markerY[6], '');
 
 //x6s
-let x6y0 = new Note(markerX[6], markerY[0], '');
-let x6y1 = new Note(markerX[6], markerY[1], '');
-let x6y2 = new Note(markerX[6], markerY[2], '');
-let x6y3 = new Note(markerX[6], markerY[3], '');
-let x6y4 = new Note(markerX[6], markerY[4], '');
-let x6y5 = new Note(markerX[6], markerY[5], '');
-let x6y6 = new Note(markerX[6], markerY[6], '');
+var x6y0 = new Note(markerX[6], markerY[0], '');
+var x6y1 = new Note(markerX[6], markerY[1], '');
+var x6y2 = new Note(markerX[6], markerY[2], '');
+var x6y3 = new Note(markerX[6], markerY[3], '');
+var x6y4 = new Note(markerX[6], markerY[4], '');
+var x6y5 = new Note(markerX[6], markerY[5], '');
+var x6y6 = new Note(markerX[6], markerY[6], '');
 
 //x7s 
-let x7y0 = new Note(markerX[7], markerY[0], '');
-let x7y1 = new Note(markerX[7], markerY[1], '');
-let x7y2 = new Note(markerX[7], markerY[2], '');
-let x7y3 = new Note(markerX[7], markerY[3], '');
-let x7y4 = new Note(markerX[7], markerY[4], '');
-let x7y5 = new Note(markerX[7], markerY[5], '');
-let x7y6 = new Note(markerX[7], markerY[6], '');
+var x7y0 = new Note(markerX[7], markerY[0], '');
+var x7y1 = new Note(markerX[7], markerY[1], '');
+var x7y2 = new Note(markerX[7], markerY[2], '');
+var x7y3 = new Note(markerX[7], markerY[3], '');
+var x7y4 = new Note(markerX[7], markerY[4], '');
+var x7y5 = new Note(markerX[7], markerY[5], '');
+var x7y6 = new Note(markerX[7], markerY[6], '');
 
 //x8s
-let x8y0 = new Note(markerX[8], markerY[0], '');
-let x8y1 = new Note(markerX[8], markerY[1], '');
-let x8y2 = new Note(markerX[8], markerY[2], '');
-let x8y3 = new Note(markerX[8], markerY[3], '');
-let x8y4 = new Note(markerX[8], markerY[4], '');
-let x8y5 = new Note(markerX[8], markerY[5], '');
-let x8y6 = new Note(markerX[8], markerY[6], '');
+var x8y0 = new Note(markerX[8], markerY[0], '');
+var x8y1 = new Note(markerX[8], markerY[1], '');
+var x8y2 = new Note(markerX[8], markerY[2], '');
+var x8y3 = new Note(markerX[8], markerY[3], '');
+var x8y4 = new Note(markerX[8], markerY[4], '');
+var x8y5 = new Note(markerX[8], markerY[5], '');
+var x8y6 = new Note(markerX[8], markerY[6], '');
 
 //x9s
-let x9y0 = new Note(markerX[9], markerY[0], '');
-let x9y1 = new Note(markerX[9], markerY[1], '');
-let x9y2 = new Note(markerX[9], markerY[2], '');
-let x9y3 = new Note(markerX[9], markerY[3], '');
-let x9y4 = new Note(markerX[9], markerY[4], '');
-let x9y5 = new Note(markerX[9], markerY[5], '');
-let x9y6 = new Note(markerX[9], markerY[6], '');
+var x9y0 = new Note(markerX[9], markerY[0], '');
+var x9y1 = new Note(markerX[9], markerY[1], '');
+var x9y2 = new Note(markerX[9], markerY[2], '');
+var x9y3 = new Note(markerX[9], markerY[3], '');
+var x9y4 = new Note(markerX[9], markerY[4], '');
+var x9y5 = new Note(markerX[9], markerY[5], '');
+var x9y6 = new Note(markerX[9], markerY[6], '');
 
 //x10s
-let x10y0 = new Note(markerX[10], markerY[0], '');
-let x10y1 = new Note(markerX[10], markerY[1], '');
-let x10y2 = new Note(markerX[10], markerY[2], '');
-let x10y3 = new Note(markerX[10], markerY[3], '');
-let x10y4 = new Note(markerX[10], markerY[4], '');
-let x10y5 = new Note(markerX[10], markerY[5], '');
-let x10y6 = new Note(markerX[10], markerY[6], '');
+var x10y0 = new Note(markerX[10], markerY[0], '');
+var x10y1 = new Note(markerX[10], markerY[1], '');
+var x10y2 = new Note(markerX[10], markerY[2], '');
+var x10y3 = new Note(markerX[10], markerY[3], '');
+var x10y4 = new Note(markerX[10], markerY[4], '');
+var x10y5 = new Note(markerX[10], markerY[5], '');
+var x10y6 = new Note(markerX[10], markerY[6], '');
 
 //x11s
-let x11y0 = new Note(markerX[11], markerY[0], '');
-let x11y1 = new Note(markerX[11], markerY[1], '');
-let x11y2 = new Note(markerX[11], markerY[2], '');
-let x11y3 = new Note(markerX[11], markerY[3], '');
-let x11y4 = new Note(markerX[11], markerY[4], '');
-let x11y5 = new Note(markerX[11], markerY[5], '');
-let x11y6 = new Note(markerX[11], markerY[6], '');
+var x11y0 = new Note(markerX[11], markerY[0], '');
+var x11y1 = new Note(markerX[11], markerY[1], '');
+var x11y2 = new Note(markerX[11], markerY[2], '');
+var x11y3 = new Note(markerX[11], markerY[3], '');
+var x11y4 = new Note(markerX[11], markerY[4], '');
+var x11y5 = new Note(markerX[11], markerY[5], '');
+var x11y6 = new Note(markerX[11], markerY[6], '');
 
 //x12s
-let x12y0 = new Note(markerX[12], markerY[0], '');
-let x12y1 = new Note(markerX[12], markerY[1], '');
-let x12y2 = new Note(markerX[12], markerY[2], '');
-let x12y3 = new Note(markerX[12], markerY[3], '');
-let x12y4 = new Note(markerX[12], markerY[4], '');
-let x12y5 = new Note(markerX[12], markerY[5], '');
-let x12y6 = new Note(markerX[12], markerY[6], '');
+var x12y0 = new Note(markerX[12], markerY[0], '');
+var x12y1 = new Note(markerX[12], markerY[1], '');
+var x12y2 = new Note(markerX[12], markerY[2], '');
+var x12y3 = new Note(markerX[12], markerY[3], '');
+var x12y4 = new Note(markerX[12], markerY[4], '');
+var x12y5 = new Note(markerX[12], markerY[5], '');
+var x12y6 = new Note(markerX[12], markerY[6], '');
 
 //x13s
-let x13y0 = new Note(markerX[13], markerY[0], '');
-let x13y1 = new Note(markerX[13], markerY[1], '');
-let x13y2 = new Note(markerX[13], markerY[2], '');
-let x13y3 = new Note(markerX[13], markerY[3], '');
-let x13y4 = new Note(markerX[13], markerY[4], '');
-let x13y5 = new Note(markerX[13], markerY[5], '');
-let x13y6 = new Note(markerX[13], markerY[6], '');
+var x13y0 = new Note(markerX[13], markerY[0], '');
+var x13y1 = new Note(markerX[13], markerY[1], '');
+var x13y2 = new Note(markerX[13], markerY[2], '');
+var x13y3 = new Note(markerX[13], markerY[3], '');
+var x13y4 = new Note(markerX[13], markerY[4], '');
+var x13y5 = new Note(markerX[13], markerY[5], '');
+var x13y6 = new Note(markerX[13], markerY[6], '');
 
 //x14s
-let x14y0 = new Note(markerX[14], markerY[0], '');
-let x14y1 = new Note(markerX[14], markerY[1], '');
-let x14y2 = new Note(markerX[14], markerY[2], '');
-let x14y3 = new Note(markerX[14], markerY[3], '');
-let x14y4 = new Note(markerX[14], markerY[4], '');
-let x14y5 = new Note(markerX[14], markerY[5], '');
-let x14y6 = new Note(markerX[14], markerY[6], '');
+var x14y0 = new Note(markerX[14], markerY[0], '');
+var x14y1 = new Note(markerX[14], markerY[1], '');
+var x14y2 = new Note(markerX[14], markerY[2], '');
+var x14y3 = new Note(markerX[14], markerY[3], '');
+var x14y4 = new Note(markerX[14], markerY[4], '');
+var x14y5 = new Note(markerX[14], markerY[5], '');
+var x14y6 = new Note(markerX[14], markerY[6], '');
 
 //x15s
-let x15y0 = new Note(markerX[15], markerY[0], '');
-let x15y1 = new Note(markerX[15], markerY[1], '');
-let x15y2 = new Note(markerX[15], markerY[2], '');
-let x15y3 = new Note(markerX[15], markerY[3], '');
-let x15y4 = new Note(markerX[15], markerY[4], '');
-let x15y5 = new Note(markerX[15], markerY[5], '');
-let x15y6 = new Note(markerX[15], markerY[6], '');
+var x15y0 = new Note(markerX[15], markerY[0], '');
+var x15y1 = new Note(markerX[15], markerY[1], '');
+var x15y2 = new Note(markerX[15], markerY[2], '');
+var x15y3 = new Note(markerX[15], markerY[3], '');
+var x15y4 = new Note(markerX[15], markerY[4], '');
+var x15y5 = new Note(markerX[15], markerY[5], '');
+var x15y6 = new Note(markerX[15], markerY[6], '');
 
 //x16s
-let x16y0 = new Note(markerX[16], markerY[0], '');
-let x16y1 = new Note(markerX[16], markerY[1], '');
-let x16y2 = new Note(markerX[16], markerY[2], '');
-let x16y3 = new Note(markerX[16], markerY[3], '');
-let x16y4 = new Note(markerX[16], markerY[4], '');
-let x16y5 = new Note(markerX[16], markerY[5], '');
-let x16y6 = new Note(markerX[16], markerY[6], '');
+var x16y0 = new Note(markerX[16], markerY[0], '');
+var x16y1 = new Note(markerX[16], markerY[1], '');
+var x16y2 = new Note(markerX[16], markerY[2], '');
+var x16y3 = new Note(markerX[16], markerY[3], '');
+var x16y4 = new Note(markerX[16], markerY[4], '');
+var x16y5 = new Note(markerX[16], markerY[5], '');
+var x16y6 = new Note(markerX[16], markerY[6], '');
 
 //x17s
-let x17y0 = new Note(markerX[17], markerY[0], '');
-let x17y1 = new Note(markerX[17], markerY[1], '');
-let x17y2 = new Note(markerX[17], markerY[2], '');
-let x17y3 = new Note(markerX[17], markerY[3], '');
-let x17y4 = new Note(markerX[17], markerY[4], '');
-let x17y5 = new Note(markerX[17], markerY[5], '');
-let x17y6 = new Note(markerX[17], markerY[6], '');
+var x17y0 = new Note(markerX[17], markerY[0], '');
+var x17y1 = new Note(markerX[17], markerY[1], '');
+var x17y2 = new Note(markerX[17], markerY[2], '');
+var x17y3 = new Note(markerX[17], markerY[3], '');
+var x17y4 = new Note(markerX[17], markerY[4], '');
+var x17y5 = new Note(markerX[17], markerY[5], '');
+var x17y6 = new Note(markerX[17], markerY[6], '');
 
 //x18s
-let x18y0 = new Note(markerX[18], markerY[0], '');
-let x18y1 = new Note(markerX[18], markerY[1], '');
-let x18y2 = new Note(markerX[18], markerY[2], '');
-let x18y3 = new Note(markerX[18], markerY[3], '');
-let x18y4 = new Note(markerX[18], markerY[4], '');
-let x18y5 = new Note(markerX[18], markerY[5], '');
-let x18y6 = new Note(markerX[18], markerY[6], '');
+var x18y0 = new Note(markerX[18], markerY[0], '');
+var x18y1 = new Note(markerX[18], markerY[1], '');
+var x18y2 = new Note(markerX[18], markerY[2], '');
+var x18y3 = new Note(markerX[18], markerY[3], '');
+var x18y4 = new Note(markerX[18], markerY[4], '');
+var x18y5 = new Note(markerX[18], markerY[5], '');
+var x18y6 = new Note(markerX[18], markerY[6], '');
 
 
   //set HTML body styles
@@ -321,8 +321,8 @@ function download() {
 document.getElementById("downloadLink").addEventListener('click', download, false);
 
 
-let x = marginLeft;
-let y = marginTop;
+var x = marginLeft;
+var y = marginTop;
 
 //draw white rectangle behind guitar
 ctx.beginPath();
@@ -831,7 +831,7 @@ function leftSideNumber(x,y, state) {
       backdrop: true,
       onEscape: true,
       callback: function(result){
-        let num = result;
+        var num = result;
 
         if (num !== null) {
           if (num.length <= 2) {
@@ -882,7 +882,7 @@ function writeText(x,y) {
     backdrop: true,
     onEscape: true,
     callback: function(result){
-      let entry = result;
+      var entry = result;
       ctx.textAlign = "center";
       ctx.textBaseline = 'middle';
 

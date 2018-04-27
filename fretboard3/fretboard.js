@@ -888,13 +888,13 @@ function writeText(x,y) {
 
       if (entry !== null) {
         if (entry.length  === 1) {
-          drawShapes(x,y,'');
+          //drawShapes(x,y,'');
           ctx.fillStyle = "white";
           ctx.font = singleDigitNoteTextSize + 'px ' + fontForFrets;
           ctx.fillText(entry, x, y);
         }
         else if (entry.length === 2){
-          drawShapes(x,y,'');
+          //drawShapes(x,y,'');
           ctx.fillStyle = "white";
           ctx.font = doubleDigitNoteTextSize + 'px ' + fontForFrets;
           ctx.fillText(entry, x, y);

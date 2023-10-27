@@ -273,13 +273,13 @@ for (i = 1; i <= numberHorzontalLines; i++) {
 }
 
 //write branding
-ctx.beginPath();
-ctx.fillStyle = 'grey';
-ctx.font = fontSizeForBrand + 'px ' + fontForBrand;
-ctx.textAlign = 'center';
-ctx.textBaseline = 'middle';
-ctx.fillText(brand, canvasWidth/2, canvasHeight-15, canvasWidth);
-ctx.closePath();
+// ctx.beginPath();
+// ctx.fillStyle = 'grey';
+// ctx.font = fontSizeForBrand + 'px ' + fontForBrand;
+// ctx.textAlign = 'center';
+// ctx.textBaseline = 'middle';
+// ctx.fillText(brand, canvasWidth/2, canvasHeight-15, canvasWidth);
+// ctx.closePath();
 
 
 

@@ -48,7 +48,7 @@ let
   doubleDigitNoteTextSize = singleDigitNoteTextSize * .7,
   fontForFrets = 'Times'
   title = '',
-  brand = 'GuitarLearningTools.com',
+  brand = 'ThriveGutiar.com',
   fontForBrand = 'Verdana',
   fontSizeForBrand = 16
   ;//end settings

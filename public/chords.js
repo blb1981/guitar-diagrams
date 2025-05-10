@@ -29,27 +29,27 @@ let canvasWidth = 300,
   distanceBetweenHorizontalLines = guitarHeight / (numberHorzontalLines - 1),
   markerX = new Array(),
   markerY = new Array(),
-  rect = canvas.getBoundingClientRect()
-;(whiteRectangleWidth = distanceBetweenVerticalLines * 0.9),
-  (whiteRectangleHeight = distanceBetweenHorizontalLines * 0.65),
-  (openWhiteRectangleWidth = distanceBetweenVerticalLines * 0.7),
-  (openWhiteRectangleHeight = distanceBetweenHorizontalLines * 0.6),
-  (aboveTopNutYRectPosition = marginTop * 0.65),
-  (blackRectangleWidth = distanceBetweenVerticalLines * 0.7),
-  (blackRectangleHeight = distanceBetweenHorizontalLines * 0.6),
-  (fontSizeForOpenShapes = '27'), //in pixels
-  (fontForOpenShapes = 'Arial')
-;(fontSizeForTitle = aboveTopNutYRectPosition * 0.8), //in pixels
-  (fontForTitle = 'Times'),
-  (leftSideTextMarker = marginLeft / 3), //adjust as needed for text on left side
-  (singleDigitNoteTextSize =
-    distanceBetweenVerticalLines * circleSizePercentage * 2),
-  (doubleDigitNoteTextSize = singleDigitNoteTextSize * 0.7),
-  (fontForFrets = 'Times')
-;(title = ''),
-  (brand = 'GuitarLearningTools.com'),
-  (fontForBrand = 'Verdana'),
-  (fontSizeForBrand = 16) //end settings
+  rect = canvas.getBoundingClientRect(),
+  whiteRectangleWidth = distanceBetweenVerticalLines * 0.9,
+  whiteRectangleHeight = distanceBetweenHorizontalLines * 0.65,
+  openWhiteRectangleWidth = distanceBetweenVerticalLines * 0.7,
+  openWhiteRectangleHeight = distanceBetweenHorizontalLines * 0.6,
+  aboveTopNutYRectPosition = marginTop * 0.65,
+  blackRectangleWidth = distanceBetweenVerticalLines * 0.7,
+  blackRectangleHeight = distanceBetweenHorizontalLines * 0.6,
+  fontSizeForOpenShapes = '27', //in pixel
+  fontForOpenShapes = 'Arial',
+  fontSizeForTitle = aboveTopNutYRectPosition * 0.8, //in pixels
+  fontForTitle = 'Times',
+  leftSideTextMarker = marginLeft / 3, //adjust as needed for text on left side
+  singleDigitNoteTextSize =
+    distanceBetweenVerticalLines * circleSizePercentage * 2,
+  doubleDigitNoteTextSize = singleDigitNoteTextSize * 0.7,
+  fontForFrets = 'Times',
+  title = '',
+  brand = 'ThriveGuitar.com',
+  fontForBrand = 'Verdana',
+  fontSizeForBrand = 16 //end settings
 
 //Note object prototype
 function Note(x, y, state) {

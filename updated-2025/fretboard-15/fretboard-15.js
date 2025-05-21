@@ -3,15 +3,15 @@ var c = document.getElementById('canvas')
 var ctx = c.getContext('2d')
 
 //settings
-let canvasWidth = 1100,
-  canvasHeight = 375,
+let canvasWidth = 900,
+  canvasHeight = 350,
   // marginLeft = canvasWidth * 0.05,
   marginLeft = 60,
   marginRight = canvasWidth * 0.97,
   marginTop = canvasHeight * 0.3,
   marginBottom = canvasHeight * 0.83,
   numberHorzontalLines = 6,
-  numberVerticalLines = 19,
+  numberVerticalLines = 16,
   lineWidth = 2,
   topNut = false,
   leftNut = true,

@@ -416,7 +416,8 @@ $('#drawNut').click(function () {
 
 //listen for clicks on save button
 $('#downloadLink').click(function () {
-  document.getElementById('downloadLink').download = title + '-chord.jpg'
+  document.getElementById('downloadLink').download =
+    title + '-chord-diagram.jpg'
 })
 
 //title functions

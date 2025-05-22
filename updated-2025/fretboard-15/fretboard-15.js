@@ -698,7 +698,7 @@ $('#drawNut').click(function () {
 $('#downloadLink').click(function () {
   console.log({ titleToSave }, { subtitleToSave })
   document.getElementById('downloadLink').download =
-    slugify(titleToSave + ' ' + subtitleToSave) + '.jpg'
+    slugify(titleToSave + ' ' + subtitleToSave) + '-fretboard-diagram.jpg'
 })
 
 //title functions
